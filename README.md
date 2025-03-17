@@ -30,26 +30,26 @@ A full-stack question-and-answer platform similar to Stack Overflow, allowing ve
 👥 Team & Responsibilities
 Frontend Team
 
-      Fedlu: Header with Responsiveness
-      Destaw: Header with Responsiveness
-      Gedi: Homepage UI (List of questions)
-      Henok: Login/SignUp UI
-      Esrom: Ask Questions Page
-      Nehemiah: Footer with responsiveness
-      Sami: Question & Answer Page
+      ✅Fedlu: Header with Responsiveness
+      ✅Destaw: Header with Responsiveness
+      ✅Gedi: Homepage UI (List of questions)
+      ✅Henok: Login/SignUp UI
+      ✅Esrom: Ask Questions Page
+      ✅Nehemiah: Footer with responsiveness
+      ✅Sami: Question & Answer Page
       
  Backend Team
  
-      Hana, Henok: User Authentication (Sign up, Login, Logout, JWT Implementation)
-      Girum: Question API (CRUD Operations, List Questions by Latest, Get Question Details))
-      Gedi: Security & Rate Limiting (Unique Email & Username, Password Hashing, API Protection)
-      Sami: Answer API (Post Answer, Retrieve Answers, Associate Answers with Users & Questions)
+      ✅Hana, Henok: User Authentication (Sign up, Login, Logout, JWT Implementation)
+      ✅Girum: Question API (CRUD Operations, List Questions by Latest, Get Question Details))
+      ✅Gedi: Security & Rate Limiting (Unique Email & Username, Password Hashing, API Protection)
+      ✅Sami: Answer API (Post Answer, Retrieve Answers, Associate Answers with Users & Questions)
       
  Database Team
  
-      Hana, Henok: Database schema design
-      Sami, Gedi, Girum: Optimize Queries (Indexes, Foreign Keys, Data Integrity, Performance Improvements)
-      Sami, Gedi, Girum: Code reviews, CI/CD, GitHub workflows
+      ✅Hana, Henok: Database schema design
+      ✅Sami, Gedi, Girum: Optimize Queries (Indexes, Foreign Keys, Data Integrity, Performance Improvements)
+      ✅Sami, Gedi, Girum: Code reviews, CI/CD, GitHub workflows
       
 
 📜 Contribution Guidelines

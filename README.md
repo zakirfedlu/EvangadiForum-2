@@ -33,7 +33,8 @@ Frontend Team
       ✅Fedlu: Header with Responsiveness
       ✅Destaw: Header with Responsiveness
       ✅Gedi: Homepage UI (List of questions)
-      ✅Henok: Login/SignUp UI
+      ✅Henok: Login/SignUp UI with Responsiveness 
+      ✅Dawit: Login/SignUp Ui with Responsiveness 
       ✅Esrom: Ask Questions Page
       ✅Nehemiah: Footer with responsiveness
       ✅Sami: Question & Answer Page

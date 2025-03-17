@@ -1,11 +1,11 @@
-    Evangadi Forum - Q&A System
+  Evangadi Forum - Q&A System
 A full-stack question-and-answer platform similar to Stack Overflow, allowing verified users to post and answer questions.
 
 🚀 Tech Stack
-Frontend: React.js, Tailwind CSS
-Backend: Node.js, Express.js
-Database: MySQL
-Version Control: Git & GitHub
+            Frontend: React.js, Tailwind CSS
+            Backend: Node.js, Express.js
+            Database: MySQL
+            Version Control: Git & GitHub
 
 
 📌 Features (MVP for 2 Weeks)

@@ -3,9 +3,9 @@ A full-stack question-and-answer platform similar to Stack Overflow, allowing ve
 
 🚀 Tech Stack
 
-            Frontend: React.js, Tailwind CSS
+            Frontend: React.js, modular css
             Backend: Node.js, Express.js
-            Database: MySQL
+            Database: MySQL, ...
             Version Control: Git & GitHub
 
 

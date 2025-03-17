@@ -85,12 +85,14 @@ Frontend Setup
 
 📅 2-Week Timeline
 Week 1
+
     ✅ Set up GitHub repository & CI/CD
     ✅ Implement authentication (Signup, Login, JWT)
     ✅ Develop database schema & API endpoints
     ✅ Build homepage UI with questions list
 
 Week 2
+
     ✅ Implement posting & answering questions
     ✅ Implement voting system (upvote/downvote)
     ✅ Develop profile page

@@ -30,8 +30,8 @@ A full-stack question-and-answer platform similar to Stack Overflow, allowing ve
 👥 Team & Responsibilities
 Frontend Team
 
-      Fedlu: Header with Component
-      Destaw: Header with Component
+      Fedlu: Header with Responsiveness
+      Destaw: Header with Responsiveness
       Gedi: Homepage UI (List of questions)
       Henok: Login/SignUp UI
       Esrom: Ask Questions Page

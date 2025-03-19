@@ -1,0 +1,133 @@
+/* Header.module.css */
+
+.header__container {
+  display: flex;
+  justify-content: space-around; /* Changed to space-between for better control */
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  background-color: #fff; /* Ensure a white background for consistency */
+}
+
+.header__logo img {
+  width: auto;
+  height: 30px;
+  object-fit: contain;
+}
+
+.header__nav__list {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header__nav__list li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.header__nav__list li a:hover {
+  color: #007bff;
+}
+
+.header__nav__list button {
+  background-color: #007bff;
+  border: none;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 500;
+  padding: 5px 30px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.header__nav__list li button:hover {
+  background-color: #0056b3;
+}
+
+/* Hamburger Icon (hidden on desktop) */
+.hamburger {
+  display: none; /* Hidden by default on larger screens */
+  cursor: pointer;
+  color: #333;
+}
+
+/* Responsive Styles */
+
+/* Tablet (768px and below) */
+@media (max-width: 768px) {
+  .header__container {
+    padding: 10px 15px; /* Reduce padding for smaller screens */
+  }
+
+  .header__logo img {
+    height: 25px; /* Slightly smaller logo */
+  }
+
+  .header__nav__list {
+    gap: 15px; /* Reduce gap between nav items */
+  }
+
+  .header__nav__list li a {
+    font-size: 14px; /* Smaller font size */
+  }
+
+  .header__nav__list button {
+    padding: 5px 20px; /* Smaller button */
+    font-size: 14px;
+  }
+}
+
+/* Mobile (576px and below) */
+@media (max-width: 576px) {
+  .header__container {
+    flex-wrap: wrap; /* Allow wrapping if needed */
+  }
+
+  .hamburger {
+    display: block; /* Show hamburger icon on mobile */
+  }
+
+  .header__nav {
+    display: none; /* Hide the nav by default on mobile */
+    width: 100%;
+    position: absolute;
+    top: 60px; /* Adjust based on header height */
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .header__nav.active {
+    display: block; /* Show nav when active (hamburger clicked) */
+  }
+
+  .header__nav__list {
+    flex-direction: column; /* Stack nav items vertically */
+    align-items: center;
+    padding: 20px 0;
+  }
+
+  .header__nav__list li {
+    margin: 10px 0; /* Add spacing between items */
+  }
+
+  .header__nav__list li a {
+    font-size: 16px; /* Larger font for better tap targets */
+  }
+
+  .header__nav__list button {
+    padding: 8px 40px; /* Larger button for better tap target */
+    font-size: 16px;
+  }
+}

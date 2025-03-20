@@ -2,6 +2,7 @@
 const dbConnection = require("../db/dbConfig");
 const bcrypt = require("bcrypt");
 const { StatusCodes } = require("http-status-codes");
+const jwt = require("jsonwebtoken");
 
 // register function
 async function register(req, res) {
@@ -63,7 +64,15 @@ async function login(req, res) {
       if (!isMatch){
         return res.status(StatusCodes.BAD_REQUEST).json({msg: "invalid credential"})
       }
-      return res.json({user: user[0].user_password})
+      // JWT used for authentication and data exchange
+      const username = user[0].username
+      const userid = user[0].userid;
+      const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+      });
+      return res.status(StatusCodes.OK).json({msg: "user login successfully", token})
+
+    //   return res.json({user: user[0].user_password})
     
   } catch (error) {
     console.log(error.message);
@@ -75,7 +84,9 @@ async function login(req, res) {
 
 // Check user function
 async function checkUser(req, res) {
-  res.send("check use");
+    const username = req.user.username
+    const userid = req.user.userid
+    res.status(StatusCodes.OK).json({msg: "valid user", username, userid})
 }
 
 module.exports = { register, login, checkUser };

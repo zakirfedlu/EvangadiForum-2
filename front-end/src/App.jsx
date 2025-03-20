@@ -1,12 +1,10 @@
 import React from 'react'
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
+import Routing from './Routing'
 
 const App = () => {
   return (
     <div>
-      <Header />
-      <Footer />
+      <Routing />
     </div>
   )
 }

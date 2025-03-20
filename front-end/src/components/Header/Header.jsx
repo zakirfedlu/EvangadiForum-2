@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi'; // For hamburger and close icons
 import style from './Header.module.css';
 import logo from '../../assets/images/HeaderLogo.png';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,7 +14,9 @@ const Header = () => {
     return (
         <div className={style.header__container}>
             <div className={style.header__logo}>
-                <img src={logo} alt="Evangadi Logo" />
+                <Link to="/">
+                    <img src={logo} alt="Evangadi Logo" />
+                </Link>
             </div>
 
             {/* Hamburger Icon for Mobile */}
@@ -25,15 +28,15 @@ const Header = () => {
             <div className={`${style.header__nav} ${isMenuOpen ? style.active : ''}`}>
                 <ul className={style.header__nav__list}>
                     <li>
-                        <a href="#" onClick={() => setIsMenuOpen(false)}>Home</a>
+                        <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
                     </li>
                     <li>
-                        <a href="#" onClick={() => setIsMenuOpen(false)}>How it Works</a>
+                        <Link to="/howItWorks" onClick={() => setIsMenuOpen(false)}>How it Works</Link>
                     </li>
                     <li>
-                        <a href="#" onClick={() => setIsMenuOpen(false)}>
+                        <Link to="/" onClick={() => setIsMenuOpen(false)}>
                             <button>Sign In</button>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>

@@ -119,6 +119,7 @@ const Auth = () => {
                     )}
                 </div>
 
+
                 {/* Right Column: Description */}
                 <div className={style.description__container}>
                     <h5>About</h5>
@@ -134,8 +135,6 @@ const Auth = () => {
                     </p>
                     <button className={style.how__it__works}>HOW IT WORKS</button>
                 </div>
-
-
             </div>
         </Layout>
     )

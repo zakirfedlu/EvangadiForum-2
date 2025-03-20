@@ -1,10 +1,34 @@
 [
-  { "id": 1, "name": "misrak_2", "question": "git gen mendnew?" },
+  {
+    "id": 1,
+    "title": "How to install React?",
+    "name": "sami",
+    "question": "React is a JavaScript library for building user interfaces. It is used for building single-page applications (SPAs) and mobile applications.",
+    "createdAt": "2023-01-01T00:00:00.000Z",
+    "updatedAt": "2023-01-01T00:00:00.000Z"
+  },
   {
     "id": 2,
-    "name": "danny_gir_admin",
-    "question": "what's react-router-dom?"
+    "title": "What is React?",
+    "name": "gedi",
+    "question": "React is a JavaScript library for building user interfaces. It is used for building single-page applications (SPAs) and mobile applications.",
+    "createdAt": "2023-01-01T00:00:00.000Z",
+    "updatedAt": "2023-01-01T00:00:00.000Z"
   },
-  { "id": 3, "name": "danny_gir_admin", "question": "what is http?" },
-  { "id": 4, "name": "rediat_12", "question": "What's div?" }
+  {
+    "id": 3,
+    "title": "What is HTTP? ",
+    "name": "girum",
+    "question": "React is a JavaScript library for building user interfaces. It is used for building single-page applications (SPAs) and mobile applications.",
+    "createdAt": "2023-01-01T00:00:00.000Z",
+    "updatedAt": "2023-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 4,
+    "title": "How to integrate React with MySQL? ",
+    "name": "destaw",
+    "question": "React is a JavaScript library for building user interfaces. It is used for building single-page applications (SPAs) and mobile applications.",
+    "createdAt": "2023-01-01T00:00:00.000Z",
+    "updatedAt": "2023-01-01T00:00:00.000Z"
+  }
 ]

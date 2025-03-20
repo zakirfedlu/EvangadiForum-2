@@ -4,6 +4,7 @@
     "title": "How to install React?",
     "name": "sami",
     "question": "React is a JavaScript library for building user interfaces. It is used for building single-page applications (SPAs) and mobile applications.",
+    "answer": "Installing React and setting up a new React project is straightforward, thanks to tools like create-react-app or alternatives like Vite. Below,",
     "createdAt": "2023-01-01T00:00:00.000Z",
     "updatedAt": "2023-01-01T00:00:00.000Z"
   },
@@ -11,7 +12,8 @@
     "id": 2,
     "title": "What is React?",
     "name": "gedi",
-    "question": "React is a JavaScript library for building user interfaces. It is used for building single-page applications (SPAs) and mobile applications.",
+    "question": "React is an open-source JavaScript library for building user interfaces (UIs), particularly single-page applications (SPAs) where the UI needs to update dynamically without reloading the entire page.",
+    "answer": "React is a JavaScript library for building user interfaces. It is used for building single-page applications (SPAs) and mobile applications.",
     "createdAt": "2023-01-01T00:00:00.000Z",
     "updatedAt": "2023-01-01T00:00:00.000Z"
   },
@@ -20,6 +22,7 @@
     "title": "What is HTTP? ",
     "name": "girum",
     "question": "React is a JavaScript library for building user interfaces. It is used for building single-page applications (SPAs) and mobile applications.",
+    "answer": "HTTP (HyperText Transfer Protocol) is a protocol used for transferring data over the web. It’s the foundation of communication between a client (e.g., a web browser or a React app) and a server (e.g., a backend API or database).",
     "createdAt": "2023-01-01T00:00:00.000Z",
     "updatedAt": "2023-01-01T00:00:00.000Z"
   },
@@ -28,6 +31,7 @@
     "title": "How to integrate React with MySQL? ",
     "name": "destaw",
     "question": "React is a JavaScript library for building user interfaces. It is used for building single-page applications (SPAs) and mobile applications.",
+    "answer": "Integrating React with MySQL involves setting up a backend server to handle database operations and expose an API that your React app can call using HTTP requests.",
     "createdAt": "2023-01-01T00:00:00.000Z",
     "updatedAt": "2023-01-01T00:00:00.000Z"
   }

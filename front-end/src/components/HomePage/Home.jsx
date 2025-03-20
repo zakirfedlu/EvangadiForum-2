@@ -41,7 +41,7 @@ const Home = () => {
                             </div>
                         ) : (
                             data.map((item) => (
-                                <div key={item.id} className={styles.questionItem}>
+                                <Link to={`/askQuestion/${item.id}`} key={item.id} className={styles.questionItem}>
                                     <div className={styles.userInfo}>
                                         <RxAvatar size={70} className={styles.avatar} />
                                         <p className={styles.username}>{item.name}</p>
@@ -50,7 +50,7 @@ const Home = () => {
                                         <p className={styles.questionText}>{item.title}</p>
                                         <MdKeyboardArrowRight size={30} className={styles.arrow} />
                                     </div>
-                                </div>
+                                </Link>
                             ))
                         )
                     }

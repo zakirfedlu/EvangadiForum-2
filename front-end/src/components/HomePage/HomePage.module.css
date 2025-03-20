@@ -58,6 +58,7 @@
 
 .questionItem {
   display: flex;
+  text-decoration: none;
   gap: 1.5rem;
   justify-content: space-between;
   align-items: center;

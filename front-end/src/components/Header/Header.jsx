@@ -31,7 +31,7 @@ const Header = () => {
                         <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
                     </li>
                     <li>
-                        <Link to="/howItWorks" onClick={() => setIsMenuOpen(false)}>How it Works</Link>
+                        <Link to="/" onClick={() => setIsMenuOpen(false)}>How it Works</Link>
                     </li>
                     <li>
                         <Link to="/" onClick={() => setIsMenuOpen(false)}>

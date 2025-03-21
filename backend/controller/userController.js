@@ -55,25 +55,31 @@ async function login(req, res) {
   try {
     const [user] = await dbConnection.query(
       "select username, userid, user_password from users where email = ? ",
-      [email]);
-      if(user.length == 0){
-        return res.status(StatusCodes.BAD_REQUEST).json({msg: "invalid credential"});
-      }
-      // compare password
-      const isMatch = await bcrypt.compare(user_password, user[0].user_password);
-      if (!isMatch){
-        return res.status(StatusCodes.BAD_REQUEST).json({msg: "invalid credential"})
-      }
-      // JWT used for authentication and data exchange
-      const username = user[0].username
-      const userid = user[0].userid;
-      const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
-        expiresIn: "1d",
-      });
-      return res.status(StatusCodes.OK).json({msg: "user login successfully", token})
+      [email]
+    );
+    if (user.length == 0) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "invalid credential" });
+    }
+    // compare password
+    const isMatch = await bcrypt.compare(user_password, user[0].user_password);
+    if (!isMatch) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "invalid credential" });
+    }
+    // JWT used for authentication and data exchange
+    const username = user[0].username;
+    const userid = user[0].userid;
+    const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+    return res
+      .status(StatusCodes.OK)
+      .json({ msg: "user login successfully", token });
 
     //   return res.json({user: user[0].user_password})
-    
   } catch (error) {
     console.log(error.message);
     return res
@@ -84,9 +90,9 @@ async function login(req, res) {
 
 // Check user function
 async function checkUser(req, res) {
-    const username = req.user.username
-    const userid = req.user.userid
-    res.status(StatusCodes.OK).json({msg: "valid user", username, userid})
+  const username = req.user.username;
+  const userid = req.user.userid;
+  res.status(StatusCodes.OK).json({ msg: "valid user", username, userid });
 }
 
 module.exports = { register, login, checkUser };

@@ -4,25 +4,34 @@
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
-  background-color: #1a2526; /* Dark blue background */
-  padding: 20px 20px;
-  height: 150px;
+  background-color: #1a2526;
+  padding: 20px;
+  min-height: 150px;
   color: #fff;
   font-family: Arial, sans-serif;
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
 .footer__logo {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  transition: transform 0.3s ease;
+}
+
+.footer__logo:hover {
+  transform: translateY(-2px);
 }
 
 .footer__logo img {
-  width: 150px; /* Adjust based on your logo size */
+  width: 150px;
   margin-bottom: 20px;
+  height: auto;
 }
 
 .footer__logo ul {
@@ -40,6 +49,17 @@
   color: #fff;
   font-size: 20px;
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer__logo ul li a:hover {
+  color: #b0b0b0;
+}
+
+.footer__links,
+.footer__contact {
+  display: flex;
+  flex-direction: column;
 }
 
 .footer__links ul,
@@ -47,6 +67,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: block; /* Ensure lists are always visible */
 }
 
 .footer__links h2,
@@ -55,23 +76,34 @@
   font-weight: bold;
   margin-bottom: 15px;
   color: #fff;
+  transition: color 0.2s ease;
+}
+
+.footer__links h2:hover,
+.footer__contact h2:hover {
+  color: #b0b0b0;
 }
 
 .footer__links ul li,
 .footer__contact ul li {
   margin-bottom: 10px;
+  opacity: 1; /* Ensure visibility */
+  visibility: visible; /* Ensure visibility */
 }
 
 .footer__links ul li a,
 .footer__contact ul li a {
-  color: #b0b0b0; /* Light gray for links */
+  color: #b0b0b0;
   text-decoration: none;
   font-size: 14px;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  display: inline-block; /* Ensure links are clickable */
 }
 
 .footer__links ul li a:hover,
 .footer__contact ul li a:hover {
-  color: #fff; /* White on hover for better UX */
+  color: #fff;
+  padding-left: 5px; /* Subtle hover animation */
 }
 
 /* Responsive adjustments */
@@ -80,15 +112,56 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 30px 15px;
+    min-height: auto; /* Allow height to adjust */
+    position: relative; /* Better for mobile scrolling */
   }
 
   .footer__logo,
   .footer__links,
   .footer__contact {
     margin-bottom: 30px;
+    width: 100%; /* Full width on mobile */
+    display: block; /* Ensure all sections display */
   }
 
   .footer__logo ul {
     justify-content: center;
+    flex-wrap: wrap; /* Allow social icons to wrap if needed */
+  }
+
+  .footer__logo ul li {
+    margin: 0 10px 10px 10px; /* Better spacing on mobile */
+  }
+
+  .footer__links ul,
+  .footer__contact ul {
+    display: block; /* Force display on mobile */
+  }
+
+  .footer__links ul li,
+  .footer__contact ul li {
+    margin-bottom: 12px; /* More spacing on mobile */
+  }
+}
+
+/* Small devices (below 480px) */
+@media (max-width: 480px) {
+  .footer__logo img {
+    width: 120px; /* Smaller logo on very small screens */
+  }
+
+  .footer__logo ul li a {
+    font-size: 18px; /* Slightly smaller icons */
+  }
+
+  .footer__links h2,
+  .footer__contact h2 {
+    font-size: 16px;
+  }
+
+  .footer__links ul li a,
+  .footer__contact ul li a {
+    font-size: 13px;
   }
 }

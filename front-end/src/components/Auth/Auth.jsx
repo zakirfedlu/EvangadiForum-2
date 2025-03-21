@@ -47,7 +47,7 @@ const Auth = () => {
                                     </span>
                                 </div>
                                 <button type="submit" className={style.submit__button}>
-                                    <Link to="/home">
+                                    <Link to="/home" >
                                         SUBMIT
                                     </Link>
                                 </button>

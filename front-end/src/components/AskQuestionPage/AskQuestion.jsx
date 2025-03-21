@@ -22,7 +22,7 @@ const AskQuestion = () => {
                 {/* Form Section */}
                 <div className={styles.AskQuestion}>
                     <h1 className={styles.heading}>Ask a public question</h1>
-                    <Link to="/" className={styles.link}>Go to Question page</Link>
+                    <Link to="/home" className={styles.link}>Go to Question page</Link>
                     <div className={styles.formSection}>
                         <form className={styles.form}>
                             <input

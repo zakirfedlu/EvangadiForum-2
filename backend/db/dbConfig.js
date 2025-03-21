@@ -11,6 +11,7 @@ const dbConnection = mysql2.createPool({
 // connectionLimit: 10
 });
 
+
 // // Connect to the MySQL database
 // dbConnection.execute("select 'test' ", (err, result)=> {
 //     if(err){

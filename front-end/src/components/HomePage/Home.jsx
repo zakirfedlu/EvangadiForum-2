@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Layout from '../../Layout';
 import styles from './HomePage.module.css';
 import { ScaleLoader } from 'react-spinners';
+import ChatBot from '../ChatBot/ChatBot';
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -74,6 +75,7 @@ const Home = () => {
                             </Link>
                         ))
                     )}
+                    <ChatBot />
                 </div>
             </div>
         </Layout>

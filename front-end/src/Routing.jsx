@@ -4,6 +4,7 @@ import Auth from './components/Auth/Auth'
 import Home from './components/HomePage/Home'
 import AskQuestion from './components/AskQuestionPage/AskQuestion'
 import QuestionDetail from './components/QuestionDetail/QuestionDetail'
+
 const Routing = () => {
     return (
         <Router>

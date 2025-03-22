@@ -8,9 +8,6 @@ import About from '../About/About'
 const Auth = () => {
     const [Auth, setAuth] = useState(true)
 
-
-    // 
-
     function toggleAuth() {
         setAuth(prev => !prev)
     }

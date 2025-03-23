@@ -70,7 +70,7 @@ async function login(req, res) {
       const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
         expiresIn: "1d",
       });
-      return res.status(StatusCodes.OK).json({msg: "user login successfully", token})
+      return res.status(StatusCodes.OK).json({msg: "user login successfully", token, username})
 
     //   return res.json({user: user[0].user_password})
     

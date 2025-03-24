@@ -2,6 +2,7 @@
 const dbConnection = require("../db/dbConfig");
 const bcrypt = require("bcrypt");
 const { StatusCodes } = require("http-status-codes");
+const express = require("express");
 const jwt = require("jsonwebtoken");
 
 // register function
@@ -43,6 +44,7 @@ async function register(req, res) {
       .json({ msg: "something went wrong, try again later" });
   }
 }
+// End of register function
 
 // Login function
 async function login(req, res) {
@@ -73,7 +75,6 @@ async function login(req, res) {
       return res.status(StatusCodes.OK).json({msg: "user login successfully", token, username})
 
     //   return res.json({user: user[0].user_password})
-    
   } catch (error) {
     console.log(error.message);
     return res
@@ -81,6 +82,19 @@ async function login(req, res) {
       .json({ msg: "something went wrong, try again later" });
   }
 }
+// End of Login function
+
+ // Logout Function
+  async function logout(req, res ) {
+    const blacklist = new Set(); 
+    const token = req.headers.authorization?.split(" ")[1]; // Get token from headers
+
+    if (token) {
+        blacklist.add(token); // Add token to blacklist
+    }
+    res.status(200).json({ message: "Logged out successfully " });
+}
+ // End of Logout function
 
 // Check user function
 async function checkUser(req, res) {
@@ -89,4 +103,4 @@ async function checkUser(req, res) {
     res.status(StatusCodes.OK).json({msg: "valid user", username, userid})
 }
 
-module.exports = { register, login, checkUser };
+module.exports = { register, login, checkUser, logout};

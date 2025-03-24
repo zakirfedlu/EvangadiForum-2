@@ -72,7 +72,7 @@ async function login(req, res) {
       const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
         expiresIn: "1d",
       });
-      return res.status(StatusCodes.OK).json({msg: "user login successfully", token, username})
+      return res.status(StatusCodes.OK).json({msg: "user login successfully", token})
 
     //   return res.json({user: user[0].user_password})
   } catch (error) {
@@ -98,9 +98,9 @@ async function login(req, res) {
 
 // Check user function
 async function checkUser(req, res) {
-    const username = req.user.username
-    const userid = req.user.userid
-    res.status(StatusCodes.OK).json({msg: "valid user", username, userid})
+  const username = req.user.username;
+  const userid = req.user.userid;
+  res.status(StatusCodes.OK).json({ msg: "valid user", username, userid });
 }
 
 module.exports = { register, login, checkUser, logout};

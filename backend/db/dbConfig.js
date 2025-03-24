@@ -1,16 +1,14 @@
-
-const mysql2 = require ('mysql2');
+const mysql2 = require("mysql2");
 
 // Create a MySQL connection
 const dbConnection = mysql2.createPool({
   host: "localhost",
   user: "evangadi-admin",
-  password: "userpass",
+  password: "usepass",
   database: "evangadiforum-db",
-  socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock"
-// connectionLimit: 10
+  socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
+  // connectionLimit: 10
 });
-
 
 // // Connect to the MySQL database
 // dbConnection.execute("select 'test' ", (err, result)=> {
@@ -21,4 +19,4 @@ const dbConnection = mysql2.createPool({
 //     }
 // })
 
-module.exports = dbConnection.promise()
+module.exports = dbConnection.promise();

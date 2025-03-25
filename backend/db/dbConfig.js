@@ -3,10 +3,10 @@ const mysql2 = require("mysql2");
 // Create a MySQL connection
 const dbConnection = mysql2.createPool({
   host: "localhost",
-  user: "root",
-  password: "root",
+  user: "evangadi-admin",
+  password: "usepass",
   database: "evangadiforum-db",
-  // socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
+  socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
   // connectionLimit: 10
 });
 

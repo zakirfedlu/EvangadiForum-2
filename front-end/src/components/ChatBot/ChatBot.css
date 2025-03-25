@@ -9,7 +9,7 @@
 
 #chatbot__toggle {
   position: fixed;
-  bottom: 30px;
+  bottom: 25vh;
   right: 35px;
   border: none;
   height: 50px;
@@ -34,17 +34,19 @@
 }
 
 .chatbot__popup {
-  width: 90%; /* Use percentage for flexibility */
-  max-width: 420px; /* Cap width on larger screens */
+  width: 90%; /* Flexible width */
+  max-width: 420px; /* Prevents it from being too wide */
   position: fixed;
-  bottom: 90px;
-  right: 15px; /* Reduced for smaller screens */
+  bottom: 38vh; /* Adjust this based on your footer's height */
+  right: 15px; /* Positioning from the right */
+  height: 500px; /* Fixed height */
   overflow: hidden;
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 0px 128px 0 rgba(0, 0, 0, 0.1),
     0 32px 64px -48px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease; /* Smooth resizing */
+  transition: all 0.3s ease;
+  z-index: 2100;
 }
 
 .chatbot__popup .chatbot__header {
@@ -98,17 +100,10 @@
 
 /* Body chat */
 .chat__body {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  height: 60vh; /* Use viewport height for responsiveness */
-  max-height: 460px; /* Cap height on larger screens */
-  margin-bottom: 82px;
+  height: calc(400px - 120px); /* Subtract header and footer height */
+  max-height: 400px;
   overflow-y: auto;
-  padding: clamp(15px, 3vw, 25px) clamp(12px, 2.5vw, 22px); /* Responsive padding */
-  scrollbar-width: thin;
-  scrollbar-color: #6d4fc2 transparent;
-  background: #fafafa;
+  
 }
 
 /* Base message styling */
@@ -263,7 +258,7 @@
   }
 
   #chatbot__toggle {
-    bottom: 15px;
+    bottom: 44vh;
     right: 15px;
     height: 40px;
     width: 40px;

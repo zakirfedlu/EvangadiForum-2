@@ -26,7 +26,7 @@ app.use("/api/que/", authMiddleware, questionRoute);
 //answer middleware file
 // const userRoute=require("./Routes/userRoute")
 app.use("/api/users", userRoute);
-app.use("/api/question", authMiddleware, questionRoute);
+app.use("/api/askQuestion", authMiddleware, questionRoute);
 app.use("/api/answer", authMiddleware, answerRoute);
 app.use("/api/search",authMiddleware,searchData)
 async function start() {

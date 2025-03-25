@@ -1,26 +1,27 @@
-const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
+const { StatusCodes } = require("http-status-codes");
 
 async function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer")) {
-    return res
-      .status(StatusCodes.UNAUTHORIZED)
-      .json({ msg: "Authentication Invalid" });
+    return res.status(StatusCodes.UNAUTHORIZED).json({
+      message: "Unauthorized",
+    });
   }
-  const token = authHeader.split(" ")[1];
-  // console.log(authHeader)
-  // console.log(token);
 
+  const token = authHeader.split(" ")[1];
+  // console.log(token)
   try {
-    const { username, userid } = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { username, userid };
+    const { userName, userId } = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = { userName, userId };
+    console.log(userName, userId);
     next();
   } catch (error) {
-    return res
-      .status(StatusCodes.UNAUTHORIZED)
-      .json({ msg: "Authentication Invalid" });
+    console.log(error.message);
+    res.status(StatusCodes.UNAUTHORIZED).json({
+      message: "Unauthorized",
+    });
   }
 }
 

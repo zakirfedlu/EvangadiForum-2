@@ -11,16 +11,15 @@ import { forumData } from "./EvangadiForum";
 const ChatBot = () => {
     const [chatHistory, setChatHistory] = useState([
         {
-            hideInChat: true,
+            hideInChat: false,
             role: 'model',
             text: forumData.introduction,
         }
     ]);
-    const [showChat, setShowChat] = useState(true);
+    const [showChat, setShowChat] = useState(false);
     const chatBodyRef = useRef();
-
     const toggleChat = () => {
-        setShowChat(!showChat);
+        setShowChat(prevState => !prevState);  // prevState is the current state value (true or false)
     };
 
     const generateBotResponse = async (history) => {
@@ -75,7 +74,12 @@ const ChatBot = () => {
     };
 
     useEffect(() => {
-        chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+
+        if (chatBodyRef.current) {
+
+
+            chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
+        }
     }, [chatHistory]);
     return (
         <div className="container">

@@ -1,82 +1,69 @@
-import React, { useState } from 'react';
-import style from '../Auth.module.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
-// import axios from '../../../API/axiosConfig';
-import axios from 'axios';
-import { useRef } from 'react';
+import React, { useState, useRef } from "react";
+import style from "../Auth.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import axios from "../../../API/axiosConfig";
 
 const Login = ({ toggleAuth }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState(null);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(''); // Added for error handling
+    const [error, setError] = useState(""); // Added for error handling
     const navigate = useNavigate();
+    const emailRef = useRef();
+    const passwordRef = useRef();
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
-
-    const emailRef = useRef();
-    const passwordRef = useRef();
-
-    // Handle email/password form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(''); // Reset error message
-        console.log(emailRef.current.value)
-        console.log(passwordRef.current.value)
-        const userData = {
-            email: emailRef.current.value,
-            user_password: passwordRef.current.value
-        };
-
-
+        setError(""); // Reset error message
         try {
-            const response = await axios.post('http://localhost:3001/api/users/login', userData);
+            const response = await axios.post("/users/login", {
+                email: emailRef.current.value,
+                user_password: passwordRef.current.value,
+            });
 
             const data = await response.data;
 
             if (response.ok) {
                 setUser(data.user);
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
-                navigate('/home'); // Redirect to home on success
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("user", JSON.stringify(data.user));
+                navigate("/home"); // Redirect to home on success
             } else {
                 // Handle error from API (e.g., invalid credentials)
-                setError(data.message || 'Login failed. Please try again.');
+                setError(data.message || "Login failed. Please try again.");
             }
         } catch (err) {
-            console.error('Error during login:', err);
-            setError('Something went wrong. Please try again later.');
+            console.error("Error during login:", err);
+            setError("Something went wrong. Please try again later.");
         }
     };
 
-    // Handle Google login success
     const handleGoogleSuccess = (credentialResponse) => {
         try {
             const userObject = jwtDecode(credentialResponse.credential);
             setUser(userObject);
-            console.log('Google Login Success:', userObject);
-            localStorage.setItem('user', JSON.stringify(userObject));
-            navigate('/home');
+            console.log("Google Login Success:", userObject);
+            localStorage.setItem("user", JSON.stringify(userObject));
+            navigate("/home");
         } catch (error) {
-            console.error('Error decoding Google token:', error);
+            console.error("Error decoding Google token:", error);
         }
     };
 
     const handleGoogleFailure = (error) => {
-        console.error('Google Login Failed:', error);
+        console.error("Google Login Failed:", error);
     };
 
     const handleLogout = () => {
         googleLogout();
         setUser(null);
-        localStorage.removeItem('user');
+        localStorage.removeItem("user");
     };
 
     return (
@@ -84,12 +71,12 @@ const Login = ({ toggleAuth }) => {
             <form className={style.form} onSubmit={handleSubmit}>
                 <h1>Log in to your account</h1>
                 <p>
-                    Don’t have an account?{' '}
+                    Don’t have an account?{" "}
                     <Link to="/" onClick={toggleAuth} className={style.create__account}>
                         Create a new account
                     </Link>
                 </p>
-                {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
+                {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message */}
                 <div className={style.input__group}>
                     <input
                         ref={emailRef}
@@ -100,7 +87,7 @@ const Login = ({ toggleAuth }) => {
                 </div>
                 <div className={style.input__group}>
                     <input
-                        type={showPassword ? 'text' : 'password'}
+                        type={showPassword ? "text" : "password"}
                         placeholder="Password"
                         ref={passwordRef}
                         required
@@ -121,7 +108,7 @@ const Login = ({ toggleAuth }) => {
                     </Link>
                 </p>
                 {/* Google Login Button */}
-                <div style={{ marginTop: '20px' }}>
+                <div style={{ marginTop: "20px" }}>
                     {user ? (
                         <div>
                             <p>Welcome, {user.name}!</p>
@@ -132,7 +119,7 @@ const Login = ({ toggleAuth }) => {
                         <GoogleLogin
                             onSuccess={handleGoogleSuccess}
                             onError={handleGoogleFailure}
-                            useOneTap
+                            useOneTap // Optional: Enables one-tap login
                         />
                     )}
                 </div>

@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi'; // For hamburger and close icons
 import style from './Header.module.css';
 import logo from '../../assets/images/HeaderLogo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    //!!! Check if the user is logged in on component mount
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLoggedIn(true); // User is logged in
+        } else {
+            setIsLoggedIn(false); // User is not logged in
+        }
+    }, []);
+
+    // Handle log out
+    const handleLogout = () => {
+        localStorage.removeItem('token'); // Remove token from localStorage
+        console.log('Token removed:', localStorage.getItem('token')); // Check if token is removed
+        setIsLoggedIn(false); // Update login state
+        navigate('/login'); // Redirect to login page
     };
 
     return (
@@ -34,9 +54,14 @@ const Header = () => {
                         <Link to="/" onClick={() => setIsMenuOpen(false)}>How it Works</Link>
                     </li>
                     <li>
-                        <Link to="/" onClick={() => setIsMenuOpen(false)}>
-                            <button>Sign In</button>
-                        </Link>
+                        {/* Conditional Rendering for Sign In/Log Out */}
+                        {isLoggedIn ? (
+                            <button onClick={handleLogout}>Log Out</button>
+                        ) : (
+                            <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+                                <button>Sign In</button>
+                            </Link>
+                        )}
                     </li>
                 </ul>
             </div>

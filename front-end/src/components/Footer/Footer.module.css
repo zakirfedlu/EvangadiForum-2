@@ -1,5 +1,4 @@
 /* Footer.module.css */
-
 .footer__container {
   display: flex;
   justify-content: space-around;
@@ -9,12 +8,14 @@
   min-height: 150px;
   color: #fff;
   font-family: Arial, sans-serif;
-  /* position: fixed; */
-  /* bottom: 0; */
-  /* left: 0; */
+  position: fixed; /* Make it stick */
+  bottom: 0;
+  left: 0;
   width: 100%;
   box-sizing: border-box;
-  z-index: 1000;
+  z-index: 2;
+
+
 }
 
 .footer__logo {
@@ -106,44 +107,42 @@
   padding-left: 5px; /* Subtle hover animation */
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* !  samiii  bosss need to finsh this Responsive adjustments !*/
+/* @media (max-width: 768px) {
   .footer__container {
     flex-direction: column;
     align-items: center;
     text-align: center;
     padding: 30px 15px;
-    min-height: auto; /* Allow height to adjust */
-    position: relative; /* Better for mobile scrolling */
+    min-height: auto; 
+    position: relative; 
   }
 
   .footer__logo,
   .footer__links,
   .footer__contact {
     margin-bottom: 30px;
-    width: 100%; /* Full width on mobile */
-    display: block; /* Ensure all sections display */
+    display: block;
   }
 
   .footer__logo ul {
     justify-content: center;
-    flex-wrap: wrap; /* Allow social icons to wrap if needed */
+    flex-wrap: wrap;
   }
 
   .footer__logo ul li {
-    margin: 0 10px 10px 10px; /* Better spacing on mobile */
+    margin: 0 10px 10px 10px; 
   }
 
   .footer__links ul,
   .footer__contact ul {
-    display: block; /* Force display on mobile */
+    display: block; 
   }
 
   .footer__links ul li,
-  .footer__contact ul li {
-    margin-bottom: 12px; /* More spacing on mobile */
+  .footer__contact ul li { 
   }
-}
+} */
 
 /* Small devices (below 480px) */
 @media (max-width: 480px) {

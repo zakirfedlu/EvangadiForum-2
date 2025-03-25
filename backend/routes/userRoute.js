@@ -1,25 +1,13 @@
 const express = require("express");
-// create an instance of express.Router, which is a mini-app that can be
-// mounted as middleware in our main express app. This allows us to
-// group related routes together and keep our main app.js file clean.
 const router = express.Router();
+const { register, login, checkUser, logout } = require("../Controller/userController");
+const authMiddleware = require("../Middleware/authMiddleware");
 
-// authentication middleware
-const authMiddleware = require("../middleware/authMiddleware");
-
-//User Controllers
-
-const { register ,login, checkUser, logout} = require("../controller/userController.js");
-// Register Route
 router.post("/register", register);
-
-// Login user
 router.post("/login", login);
 
-// Logout user
 router.post("/logout", authMiddleware, logout);
 
-// Check user
 router.get("/check", authMiddleware, checkUser);
 
 module.exports = router;

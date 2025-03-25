@@ -2,130 +2,127 @@
 const dbConnection = require("../db/dbConfig");
 const bcrypt = require("bcrypt");
 const { StatusCodes } = require("http-status-codes");
-const express = require("express");
 const jwt = require("jsonwebtoken");
 
-// register function
 async function register(req, res) {
-  const { username, firstname, lastname, email, user_password } = req.body;
-  if (!username || !firstname || !lastname || !email || !user_password) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "please provide all required information" });
+  const { username, first_name, last_name, email, password } = req.body;
+
+  if (!username || !first_name || !last_name || !email || !password) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      error: "Bad Request",
+      message: "Please provide all required fields",
+    });
   }
+
   try {
-    const [user] = await dbConnection.query(
-      "select username, user_id from users where username = ? or email =? ",
+    const [existingUser] = await dbConnection.query(
+      "select userid,username from users where username=? or email=?",
       [username, email]
     );
-    if (user.length > 0) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "user already registered" });
-    }
-    if (user_password.length <= 8) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "password must be at least 8 characters" });
-    }
-    // encrypt the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(user_password, salt);
 
-    await dbConnection.query(
-      "INSERT INTO users (username, firstname, lastname, email, user_password) VALUES (?,?,?,?,?)",
-      [username, firstname, lastname, email, hashedPassword]
-    );
-    return res.status(StatusCodes.CREATED).json({ msg: "user registered" });
+    if (existingUser.length > 0) {
+      return res.status(StatusCodes.CONFLICT).json({
+        error: "Conflict",
+        message: "User already existed",
+      });
+    }
+
+    if (password.length <= 8) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        error: "Bad Request",
+        message: "Password must be at least 8 characters",
+      });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const insertUser =
+      "INSERT INTO users ( username, first_name, last_name, email, password) VALUE (?,?,?,?,?)";
+
+    await dbConnection.query(insertUser, [
+      username,
+      first_name,
+      last_name,
+      email,
+      hashedPassword,
+    ]);
+
+    return res.status(StatusCodes.CREATED).json({
+      message: "User registered successfully",
+    });
   } catch (error) {
     console.log(error.message);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "something went wrong, try again later" });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: "Internal Server Error",
+      message: "Something Went Wrong .try again later!",
+    });
   }
 }
 // End of register function
 
-// Login function
 async function login(req, res) {
-  const { email, user_password } = req.body;
-  if (!email || !user_password) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "please provide all required information" });
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      error: "Bad Request",
+      message: "Please provide all required fields",
+    });
   }
+
   try {
     const [user] = await dbConnection.query(
-<<<<<<< HEAD
-      "select username, user_id, user_password from users where email = ?",
+      "select email,userid ,username ,password from users where  email=? ",
       [email]
     );
 
-    if (user.length === 0) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "invalid credentials" });
-    }
-    const isMatch = await bcrypt.compare(user_password, user[0].user_password);
-    if (!isMatch) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "invalid credentials" });
-    }
-    const username = user[0].username;
-    const userId = user[0].user_id;
-
-    const token = jwt.sign({ username, userId }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
-    res.json({ msg: "login successful", user: user[0].user_password, token });
-=======
-      "select username, userid, user_password from users where email = ? ",
-      [email]);
-      if(user.length == 0){
-        return res.status(StatusCodes.BAD_REQUEST).json({msg: "invalid credential"});
-      }
-      // compare password
-      const isMatch = await bcrypt.compare(user_password, user[0].user_password);
-      if (!isMatch){
-        return res.status(StatusCodes.BAD_REQUEST).json({msg: "invalid credential"})
-      }
-      // JWT used for authentication and data exchange
-      const username = user[0].username
-      const userid = user[0].userid;
-      const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
-        expiresIn: "1d",
+    if (user.length == 0) {
+      return res.status(StatusCodes.BAD_REQUEST).json({
+        error: "Unauthorized",
+        message: "Invalid username or password",
       });
-      return res.status(StatusCodes.OK).json({msg: "user login successfully", token})
+    }
 
-    //   return res.json({user: user[0].user_password})
->>>>>>> 69cc6d5ee374cf130e9a4ef113e187b2dc0ba3ce
+    const isMatched = await bcrypt.compare(password, user[0].password);
+    if (!isMatched) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({
+        message: "Invalid username or password",
+      });
+    }
+
+    const userName = user[0].username;
+    const userId = user[0].userid;
+
+    const token = jwt.sign(
+      {
+        userName,
+        userId,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    res.status(StatusCodes.OK).json({
+      message: "user login successfully",
+      token,
+      userName,
+    });
   } catch (error) {
     console.log(error.message);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "something went wrong, try again later" });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: "Internal Server Error",
+      message: "Something Went Wrong .try again later!",
+    });
   }
 }
 // End of Login function
 
- // Logout Function
-  async function logout(req, res ) {
-    const blacklist = new Set(); 
-    const token = req.headers.authorization?.split(" ")[1]; // Get token from headers
-
-    if (token) {
-        blacklist.add(token); // Add token to blacklist
-    }
-    res.status(200).json({ message: "Logged out successfully " });
-}
- // End of Logout function
-
-// Check user
 async function checkUser(req, res) {
-  const username = req.user.username;
-  const userId = req.user.userId;
-  res.status(StatusCodes.OK).json({ msg: "user checked", username, userId });
+  const user = req.user;
+  res.send({
+    user: user,
+    message: "User Verified",
+  });
 }
 
-module.exports = { register, login, checkUser, logout};
+module.exports = { register, login, checkUser };

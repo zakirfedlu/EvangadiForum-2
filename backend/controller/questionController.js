@@ -1,119 +1,103 @@
-const dbConnection = require("../db/dbConfig");
+const jwt = require("jsonwebtoken");
+const dbConn = require("../DB/dbConfig");
+const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require("uuid");
+
 const { StatusCodes } = require("http-status-codes");
 
-// Fetch all questions (ordered by latest)
-async function getAllQuestions(req, res) {
+async function getAllQuestion(req, res) {
   try {
-    const [questions] = await dbConnection.query(
-      "SELECT * FROM questions ORDER BY created_at DESC"
-    );
-    res.status(StatusCodes.OK).json(questions);
-  } catch (error) {
-    console.error(error.message);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong, try again later." });
-  }
-}
-
-// Fetch question details by ID
-async function getQuestionById(req, res) {
-  const { id } = req.params;
-  try {
-    const [question] = await dbConnection.query(
-      "SELECT * FROM questions WHERE question_id = ?",
-      [id]
-    );
-    if (question.length === 0) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ msg: "Question not found." });
+    const fetchQuestion =
+      "SELECT  Q.question_id,Q.title, Q.content ,Q.created_at,U.username  from questions Q JOIN users U ON U.userid=Q.userid ORDER BY created_at DESC";
+    const [data] = await dbConn.query(fetchQuestion);
+    console.log(data.length);
+    if (!data || data.length === 0) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        error: "404 Not Found",
+        message: "No questions found.",
+      });
     }
-    res.status(StatusCodes.OK).json(question[0]);
-  } catch (error) {
-    console.error(error.message);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong, try again later." });
+    return res.status(StatusCodes.OK).json({
+      questions: data,
+    });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: "Internal Server Error",
+      message: "An unexpected error occurred.",
+    });
   }
 }
 
-// Create a new question
-async function createQuestion(req, res) {
-  const { title, description, username } = req.body;
-  if (!title || !description || !username) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Please provide all required fields." });
-  }
-  try {
-    const [result] = await dbConnection.query(
-      "INSERT INTO questions (title, description, username) VALUES (?, ?, ?)",
-      [title, description, username]
-    );
-    res.status(StatusCodes.CREATED).json({ question_id: result.insertId });
-  } catch (error) {
-    console.error(error.message);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong, try again later." });
-  }
-}
-
-// Update a question by ID
-async function updateQuestion(req, res) {
-  const { id } = req.params;
+async function askQuestion(req, res) {
   const { title, description } = req.body;
-  if (!title && !description) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Please provide at least one field to update." });
+
+  const { userId } = req.user;
+
+  console.log(userId);
+  if (!title || !description) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      error: "Bad Request",
+      message: "Please provide all required fields",
+    });
   }
+
   try {
-    const [result] = await dbConnection.query(
-      "UPDATE questions SET title = COALESCE(?, title), description = COALESCE(?, description) WHERE question_id = ?",
-      [title, description, id]
-    );
-    if (result.affectedRows === 0) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ msg: "Question not found." });
+    const questionId = uuidv4();
+    const postQue =
+    "INSERT INTO questions (question_id, title, content, userid) VALUES (?,?,?,?)";
+
+    const [data] = await dbConn.query(postQue, [
+      questionId,
+      title,
+      description,
+      userId,
+    ]);
+ 
+
+    return res.status(StatusCodes.CREATED).json({
+      message: "Question posted successfully.",
+      questionId: data.insertId,
+    });
+  } catch (err) {
+    console.log(err.message);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: err.message,
+      message: "An unexpected error occurred.",
+    });
+  }
+}
+async function getSingleQuestion(req, res) {
+  const { question_id } = req.params;
+  console.log(question_id);
+
+  if (!question_id) {
+    res.status(StatusCodes.BAD_REQUEST).json({
+      error: "Not Found",
+      message: "The requested question could not be found.",
+    });
+  }
+
+  try {
+    const getSingleQue = "SELECT *  from questions where question_id=? ";
+    const [data] = await dbConn.query(getSingleQue, [question_id]);
+    if (data.length === 0 || !data) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        error: "Not Found",
+        message: "The requested question could not be found.",
+      });
     }
-    res.status(StatusCodes.OK).json({ msg: "Question updated successfully." });
-  } catch (error) {
-    console.error(error.message);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong, try again later." });
+    return res.status(StatusCodes.OK).json({
+      question: data,
+    });
+  } catch (err) {
+    console.log(err.message);
+
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      error: "Internal Server Error",
+      message: "An unexpected error occurred",
+    });
   }
 }
 
-// Delete a question by ID
-async function deleteQuestion(req, res) {
-  const { id } = req.params;
-  try {
-    const [result] = await dbConnection.query(
-      "DELETE FROM questions WHERE question_id = ?",
-      [id]
-    );
-    if (result.affectedRows === 0) {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ msg: "Question not found." });
-    }
-    res.status(StatusCodes.OK).json({ msg: "Question deleted successfully." });
-  } catch (error) {
-    console.error(error.message);
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ msg: "Something went wrong, try again later." });
-  }
-}
-
-module.exports = {
-  getAllQuestions,
-  getQuestionById,
-  createQuestion,
-  updateQuestion,
-  deleteQuestion,
-};
+module.exports = { getSingleQuestion, getAllQuestion, askQuestion };

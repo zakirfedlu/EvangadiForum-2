@@ -1,15 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import style from "../Auth.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "../../../API/axiosConfig";
+import { PuffLoader, ScaleLoader } from "react-spinners"; // Import ScaleLoader for the animation
 
 const Login = ({ toggleAuth }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState(null);
-    const [error, setError] = useState(""); // Added for error handling
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false); // New loading state
     const navigate = useNavigate();
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -20,27 +22,31 @@ const Login = ({ toggleAuth }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(""); // Reset error message
+        const emailValue = emailRef.current.value;
+        const passValue = passwordRef.current.value;
+
+        if (!emailValue || !passValue) {
+            setError("Please provide both email and password");
+            return;
+        }
+
+        setIsLoading(true); // Start loading animation
+        setError(""); // Clear previous errors
+
         try {
-            const response = await axios.post("/users/login", {
-                email: emailRef.current.value,
-                user_password: passwordRef.current.value,
+            const { data } = await axios.post("/users/login", {
+                email: emailValue,
+                password: passValue,
             });
-
-            const data = await response.data;
-
-            if (response.ok) {
-                setUser(data.user);
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("user", JSON.stringify(data.user));
-                navigate("/home"); // Redirect to home on success
-            } else {
-                // Handle error from API (e.g., invalid credentials)
-                setError(data.message || "Login failed. Please try again.");
-            }
-        } catch (err) {
-            console.error("Error during login:", err);
-            setError("Something went wrong. Please try again later.");
+            console.log(data);
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user", JSON.stringify(data.user));
+            navigate("/home");
+        } catch (error) {
+            console.warn(error.message);
+            setError(error.response?.data?.message || "An error occurred. Please try again.");
+        } finally {
+            setIsLoading(false); // Stop loading animation regardless of success or failure
         }
     };
 
@@ -65,6 +71,11 @@ const Login = ({ toggleAuth }) => {
         setUser(null);
         localStorage.removeItem("user");
     };
+    useEffect(() => {
+        setInterval(() => {
+            setIsLoading(false);
+        }, 5000);
+    }, []);
 
     return (
         <div className={`${style.form__container} ${style.login}`}>
@@ -76,13 +87,14 @@ const Login = ({ toggleAuth }) => {
                         Create a new account
                     </Link>
                 </p>
-                {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message */}
+                {error && <p style={{ color: "red" }}>{error}</p>}
                 <div className={style.input__group}>
                     <input
                         ref={emailRef}
                         type="email"
                         placeholder="Your Email"
                         required
+                        disabled={isLoading} // Disable input during loading
                     />
                 </div>
                 <div className={style.input__group}>
@@ -91,6 +103,7 @@ const Login = ({ toggleAuth }) => {
                         placeholder="Password"
                         ref={passwordRef}
                         required
+                        disabled={isLoading} // Disable input during loading
                     />
                     <span
                         className={style.password__toggle}
@@ -99,8 +112,18 @@ const Login = ({ toggleAuth }) => {
                         {showPassword ? <FiEyeOff /> : <FiEye />}
                     </span>
                 </div>
-                <button type="submit" className={style.submit__button}>
-                    SUBMIT
+                <button
+                    type="submit"
+                    className={style.submit__button}
+                    disabled={isLoading} // Disable button during loading
+                >
+                    {isLoading ? (
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <PuffLoader color="#fff" />
+                        </div>
+                    ) : (
+                        "Login"
+                    )}
                 </button>
                 <p className={style.create__account}>
                     <Link to="/" onClick={toggleAuth}>
@@ -119,7 +142,7 @@ const Login = ({ toggleAuth }) => {
                         <GoogleLogin
                             onSuccess={handleGoogleSuccess}
                             onError={handleGoogleFailure}
-                            useOneTap // Optional: Enables one-tap login
+                            useOneTap
                         />
                     )}
                 </div>

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState, useRef } from 'react'; // Fixed import statement
 import style from '../Auth.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { useRef } from 'react';
 import axiosConfig from '../../../API/axiosConfig';
 
 const CreateAccount = ({ toggleAuth }) => {
@@ -33,10 +32,9 @@ const CreateAccount = ({ toggleAuth }) => {
         password: passwordRef.current.value,
       });
 
-      // On success, redirect to the login page
-      navigate("/login");
+
+      toggleAuth();
     } catch (error) {
-      // If there's an error, show it in the red-colored div
       setError(error.response?.data?.message || 'An error occurred. Please try again.');
     }
   };
@@ -54,7 +52,7 @@ const CreateAccount = ({ toggleAuth }) => {
 
         {error && (
           <div className={style.errorMessage}>
-            <p>{error}</p>
+            <p style={{ color: 'red' }}>{error}</p>
           </div>
         )}
 

@@ -22,6 +22,9 @@
   line-height: 1.6;
   margin-bottom: 15px;
 }
+.description__container h4 {
+  color: #e55a00;
+}
 
 /* How It Works Button */
 .how__it__works {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FiMenu, FiX } from 'react-icons/fi'; // For hamburger and close icons
+import { FiLogOut, FiMenu, FiX } from 'react-icons/fi'; // For hamburger and close icons
 import style from './Header.module.css';
 import logo from '../../assets/images/HeaderLogo.png';
 import { Link, useNavigate } from 'react-router-dom';
@@ -48,18 +48,23 @@ const Header = () => {
             <div className={`${style.header__nav} ${isMenuOpen ? style.active : ''}`}>
                 <ul className={style.header__nav__list}>
                     <li>
-                        <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
+                        <Link to="/home" onClick={() => setIsMenuOpen(false)}>Home</Link>
                     </li>
                     <li>
-                        <Link to="/" onClick={() => setIsMenuOpen(false)}>How it Works</Link>
+                        <Link to="/howItWorks" onClick={() => setIsMenuOpen(false)}>How it Works</Link>
                     </li>
                     <li>
                         {/* Conditional Rendering for Sign In/Log Out */}
                         {isLoggedIn ? (
-                            <button onClick={handleLogout}>Log Out</button>
+                            <Link to="/login" onClick={handleLogout} className={style.logOut}>
+                                <button id='log-out'>
+                                    <FiLogOut size={20} className={style.icon} />
+                                    Log Out
+                                </button>
+                            </Link>
                         ) : (
-                            <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-                                <button>Sign In</button>
+                            <Link to="/login" onClick={() => setIsMenuOpen(false)} className={style.signIn}>
+                                <button id='sign-in'>Sign In</button>
                             </Link>
                         )}
                     </li>

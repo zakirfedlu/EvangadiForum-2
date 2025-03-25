@@ -30,12 +30,12 @@ async function register(req, res) {
     if (password.length <= 8) {
       return res.status(StatusCodes.BAD_REQUEST).json({
         error: "Bad Request",
-        message: "Password must be at least 8 characters",
+        message: "password must be at least 8 characters",
       });
     }
 
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedpassword = await bcrypt.hash(password, salt);
 
     const insertUser =
       "INSERT INTO users ( username, first_name, last_name, email, password) VALUE (?,?,?,?,?)";
@@ -45,7 +45,7 @@ async function register(req, res) {
       first_name,
       last_name,
       email,
-      hashedPassword,
+      hashedpassword,
     ]);
 
     return res.status(StatusCodes.CREATED).json({
@@ -63,6 +63,8 @@ async function register(req, res) {
 
 async function login(req, res) {
   const { email, password } = req.body;
+  console.log(email, password);
+
   if (!email || !password) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       error: "Bad Request",
@@ -125,4 +127,10 @@ async function checkUser(req, res) {
   });
 }
 
-module.exports = { register, login, checkUser };
+async function logout(req, res) {
+  res.send({
+    message: "User logged out successfully",
+  });
+}
+
+module.exports = { register, login, checkUser, logout };

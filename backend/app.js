@@ -21,7 +21,9 @@ const answerRoute = require("./routes/answerRoute");
 const searchData = require("./routes/searchRoute");
 
 //!questions middleware file
-
+app.get("/", (req, res) => {
+  res.send("Welcome to the forum!");
+});
 app.use("/api/que/", authMiddleware, questionRoute);
 //answer middleware file
 // const userRoute=require("./Routes/userRoute")

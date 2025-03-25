@@ -5,15 +5,15 @@ import axiosConfig from "../../API/axiosConfig";
 export const authContext = createContext();
 
 function ProtectedRoutes() {
-  const [users, SetUsers] = useState({}); 
+  const [users, SetUsers] = useState({});
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   async function checkUser() {
     if (!token) {
-      navigate("/Login"); 
-      setLoading(false); 
+      navigate("/login");
+      setLoading(false);
       return;
     }
     try {
@@ -23,12 +23,12 @@ function ProtectedRoutes() {
         },
       });
       console.log(data);
-      SetUsers(data); 
+      SetUsers(data);
     } catch (error) {
       console.log(error.message);
-      navigate("/Login"); 
+      navigate("/login");
     }
-    setLoading(false); 
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -40,8 +40,8 @@ function ProtectedRoutes() {
   }
 
   return (
-    <authContext.Provider value={{ users, SetUsers}}>
-      {users ? <Outlet /> : <Navigate to="/Login" />}
+    <authContext.Provider value={{ users, SetUsers }}>
+      {users ? <Outlet /> : <Navigate to="/login" />}
     </authContext.Provider>
   );
 }

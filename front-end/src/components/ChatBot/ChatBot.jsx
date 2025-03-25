@@ -46,8 +46,8 @@ const ChatBot = () => {
         };
 
         try {
-            const apiKey = import.meta.env.GEMINI_API_KEY || 'YOUR_API_KEY'; // Ensure this is set
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAtEOwKJNG57jUYoc6dn1E6u95XVhVdpg4`;
+            // Ensure this is set
+            const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAtEOwKJNG57jUYoc6dn1E6u95XVhVdpg4';
             const response = await fetch(url, requestOptions);
 
             // Check if response is ok before parsing
@@ -101,12 +101,6 @@ const ChatBot = () => {
                     </div>
 
                     <div ref={chatBodyRef} className="chat__body">
-                        <div className="message bot__message">
-                            <TbMessageChatbotFilled className="icon" />
-                            <p className="message__text">
-                                {forumData.introduction}
-                            </p>
-                        </div>
                         {chatHistory.map((chat, index) => (
                             <ChatMessage key={index} chat={chat} />
                         ))}

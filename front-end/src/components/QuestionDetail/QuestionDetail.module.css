@@ -180,7 +180,9 @@
   }
 
   .submitButton {
-    padding: 8px 15px;
+    display: flex;
+    justify-content: center;
+    width: 40%;
     font-size: 13px;
   }
 }
@@ -227,7 +229,10 @@
   }
 
   .submitButton {
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    place-self: center;
     padding: 10px;
     font-size: 14px;
   }

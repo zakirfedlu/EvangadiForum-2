@@ -2,6 +2,7 @@
 const dbConnection = require("../db/dbConfig");
 const bcrypt = require("bcrypt");
 const { StatusCodes } = require("http-status-codes");
+const express = require("express");
 const jwt = require("jsonwebtoken");
 
 // register function
@@ -43,6 +44,7 @@ async function register(req, res) {
       .json({ msg: "something went wrong, try again later" });
   }
 }
+// End of register function
 
 // Login function
 async function login(req, res) {
@@ -54,6 +56,7 @@ async function login(req, res) {
   }
   try {
     const [user] = await dbConnection.query(
+<<<<<<< HEAD
       "select username, user_id, user_password from users where email = ?",
       [email]
     );
@@ -76,6 +79,27 @@ async function login(req, res) {
       expiresIn: "1d",
     });
     res.json({ msg: "login successful", user: user[0].user_password, token });
+=======
+      "select username, userid, user_password from users where email = ? ",
+      [email]);
+      if(user.length == 0){
+        return res.status(StatusCodes.BAD_REQUEST).json({msg: "invalid credential"});
+      }
+      // compare password
+      const isMatch = await bcrypt.compare(user_password, user[0].user_password);
+      if (!isMatch){
+        return res.status(StatusCodes.BAD_REQUEST).json({msg: "invalid credential"})
+      }
+      // JWT used for authentication and data exchange
+      const username = user[0].username
+      const userid = user[0].userid;
+      const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+      });
+      return res.status(StatusCodes.OK).json({msg: "user login successfully", token})
+
+    //   return res.json({user: user[0].user_password})
+>>>>>>> 69cc6d5ee374cf130e9a4ef113e187b2dc0ba3ce
   } catch (error) {
     console.log(error.message);
     return res
@@ -83,6 +107,19 @@ async function login(req, res) {
       .json({ msg: "something went wrong, try again later" });
   }
 }
+// End of Login function
+
+ // Logout Function
+  async function logout(req, res ) {
+    const blacklist = new Set(); 
+    const token = req.headers.authorization?.split(" ")[1]; // Get token from headers
+
+    if (token) {
+        blacklist.add(token); // Add token to blacklist
+    }
+    res.status(200).json({ message: "Logged out successfully " });
+}
+ // End of Logout function
 
 // Check user
 async function checkUser(req, res) {
@@ -91,4 +128,4 @@ async function checkUser(req, res) {
   res.status(StatusCodes.OK).json({ msg: "user checked", username, userId });
 }
 
-module.exports = { register, login, checkUser };
+module.exports = { register, login, checkUser, logout};

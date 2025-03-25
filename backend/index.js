@@ -1,8 +1,9 @@
 require("dotenv").config();
 const cors = require("cors");
 
-const express = require("express");
+const express = require('express')
 const app = express();
+<<<<<<< HEAD
 const port = 3001;
 
 const dbConnection = require("./db/dbConfig");
@@ -12,6 +13,10 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Evangadi Forum API");
 });
+=======
+const port = 5500
+
+>>>>>>> 69cc6d5ee374cf130e9a4ef113e187b2dc0ba3ce
 
 // db Connection
 

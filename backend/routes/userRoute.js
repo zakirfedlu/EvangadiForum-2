@@ -8,17 +8,16 @@ const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
 
 //User Controllers
-const {
-  register,
-  login,
-  checkUser,
-} = require("../controller/userController.js");
 
+const { register ,login, checkUser, logout} = require("../controller/userController.js");
 // Register Route
 router.post("/register", register);
 
 // Login user
 router.post("/login", login);
+
+// Logout user
+router.post("/logout", authMiddleware, logout);
 
 // Check user
 router.get("/check", authMiddleware, checkUser);

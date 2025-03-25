@@ -1,25 +1,59 @@
 import React, { useState } from 'react';
 import style from '../Auth.module.css';
-import { Link, useNavigate } from 'react-router-dom'; // Added useNavigate for redirection
+import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+// import axios from '../../../API/axiosConfig';
+import axios from 'axios';
+import { useRef } from 'react';
 
 const Login = ({ toggleAuth }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState(null);
-    const [email, setEmail] = useState(''); // For email/password login
-    const [password, setPassword] = useState(''); // For email/password login
-    const navigate = useNavigate(); // For redirecting after login
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(''); // Added for error handling
+    const navigate = useNavigate();
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
+
+    const emailRef = useRef();
+    const passwordRef = useRef();
+
     // Handle email/password form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/home');
+        setError(''); // Reset error message
+        console.log(emailRef.current.value)
+        console.log(passwordRef.current.value)
+        const userData = {
+            email: emailRef.current.value,
+            user_password: passwordRef.current.value
+        };
+
+
+        try {
+            const response = await axios.post('http://localhost:3001/api/users/login', userData);
+
+            const data = await response.data;
+
+            if (response.ok) {
+                setUser(data.user);
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                navigate('/home'); // Redirect to home on success
+            } else {
+                // Handle error from API (e.g., invalid credentials)
+                setError(data.message || 'Login failed. Please try again.');
+            }
+        } catch (err) {
+            console.error('Error during login:', err);
+            setError('Something went wrong. Please try again later.');
+        }
     };
 
     // Handle Google login success
@@ -55,12 +89,12 @@ const Login = ({ toggleAuth }) => {
                         Create a new account
                     </Link>
                 </p>
+                {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
                 <div className={style.input__group}>
                     <input
+                        ref={emailRef}
                         type="email"
                         placeholder="Your Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>
@@ -68,8 +102,7 @@ const Login = ({ toggleAuth }) => {
                     <input
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        ref={passwordRef}
                         required
                     />
                     <span
@@ -99,7 +132,7 @@ const Login = ({ toggleAuth }) => {
                         <GoogleLogin
                             onSuccess={handleGoogleSuccess}
                             onError={handleGoogleFailure}
-                            useOneTap // Optional: Enables one-tap login
+                            useOneTap
                         />
                     )}
                 </div>

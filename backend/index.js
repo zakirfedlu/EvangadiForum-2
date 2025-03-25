@@ -1,11 +1,19 @@
 require("dotenv").config();
+const cors = require("cors");
 
 const express = require("express");
 const app = express();
-const port = 5500;
+const port = 3001;
+
+const dbConnection = require("./db/dbConfig");
+
+app.use(cors());
+
+app.get("/", (req, res) => {
+  res.send("Evangadi Forum API");
+});
 
 // db Connection
-const dbConnection = require("./db/dbConfig");
 
 // User Routes middleware file
 const userRouter = require("./routes/userRoute");
@@ -34,9 +42,10 @@ app.use("/api/answers", authMiddleware, answers);
 async function start() {
   try {
     const result = await dbConnection.execute("select 'test' ");
+    console.log(result);
     app.listen(port);
     console.log("database connection established");
-    console.log(`listening on ${port}`);
+    console.log(`listening on http://localhost:${port}`);
   } catch (error) {
     console.log(error.message);
   }

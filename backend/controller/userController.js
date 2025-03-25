@@ -14,7 +14,7 @@ async function register(req, res) {
   }
   try {
     const [user] = await dbConnection.query(
-      "select username, userid from users where username = ? or email =? ",
+      "select username, user_id from users where username = ? or email =? ",
       [username, email]
     );
     if (user.length > 0) {
@@ -50,36 +50,32 @@ async function login(req, res) {
   if (!email || !user_password) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "please enter all required fields" });
+      .json({ msg: "please provide all required information" });
   }
   try {
     const [user] = await dbConnection.query(
-      "select username, userid, user_password from users where email = ? ",
+      "select username, user_id, user_password from users where email = ?",
       [email]
     );
-    if (user.length == 0) {
+
+    if (user.length === 0) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "invalid credential" });
+        .json({ msg: "invalid credentials" });
     }
-    // compare password
     const isMatch = await bcrypt.compare(user_password, user[0].user_password);
     if (!isMatch) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ msg: "invalid credential" });
+        .json({ msg: "invalid credentials" });
     }
-    // JWT used for authentication and data exchange
     const username = user[0].username;
-    const userid = user[0].userid;
-    const token = jwt.sign({ username, userid }, process.env.JWT_SECRET, {
+    const userId = user[0].user_id;
+
+    const token = jwt.sign({ username, userId }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    return res
-      .status(StatusCodes.OK)
-      .json({ msg: "user login successfully", token });
-
-    //   return res.json({user: user[0].user_password})
+    res.json({ msg: "login successful", user: user[0].user_password, token });
   } catch (error) {
     console.log(error.message);
     return res
@@ -88,11 +84,11 @@ async function login(req, res) {
   }
 }
 
-// Check user function
+// Check user
 async function checkUser(req, res) {
   const username = req.user.username;
-  const userid = req.user.userid;
-  res.status(StatusCodes.OK).json({ msg: "valid user", username, userid });
+  const userId = req.user.userId;
+  res.status(StatusCodes.OK).json({ msg: "user checked", username, userId });
 }
 
 module.exports = { register, login, checkUser };

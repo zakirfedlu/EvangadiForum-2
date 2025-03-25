@@ -1,9 +1,9 @@
-//db conn
-const jwt = require("jsonwebtoken");
-const dbConn = require("../DB/dbConfig");
+// db Connection
+const dbConnection = require("../db/dbConfig");
 const bcrypt = require("bcrypt");
-
 const { StatusCodes } = require("http-status-codes");
+const jwt = require("jsonwebtoken");
+
 async function register(req, res) {
   const { username, first_name, last_name, email, password } = req.body;
 
@@ -15,7 +15,7 @@ async function register(req, res) {
   }
 
   try {
-    const [existingUser] = await dbConn.query(
+    const [existingUser] = await dbConnection.query(
       "select userid,username from users where username=? or email=?",
       [username, email]
     );
@@ -26,9 +26,7 @@ async function register(req, res) {
         message: "User already existed",
       });
     }
-    //   return res.json({
-    //     user:existingUser
-    //   })
+
     if (password.length <= 8) {
       return res.status(StatusCodes.BAD_REQUEST).json({
         error: "Bad Request",
@@ -42,7 +40,7 @@ async function register(req, res) {
     const insertUser =
       "INSERT INTO users ( username, first_name, last_name, email, password) VALUE (?,?,?,?,?)";
 
-    await dbConn.query(insertUser, [
+    await dbConnection.query(insertUser, [
       username,
       first_name,
       last_name,
@@ -54,13 +52,14 @@ async function register(req, res) {
       message: "User registered successfully",
     });
   } catch (error) {
-    // console.log(error.message);
+    console.log(error.message);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       error: "Internal Server Error",
       message: "Something Went Wrong .try again later!",
     });
   }
 }
+// End of register function
 
 async function login(req, res) {
   const { email, password } = req.body;
@@ -72,12 +71,10 @@ async function login(req, res) {
   }
 
   try {
-    const [user] = await dbConn.query(
+    const [user] = await dbConnection.query(
       "select email,userid ,username ,password from users where  email=? ",
       [email]
     );
-
-
 
     if (user.length == 0) {
       return res.status(StatusCodes.BAD_REQUEST).json({
@@ -90,17 +87,13 @@ async function login(req, res) {
     if (!isMatched) {
       return res.status(StatusCodes.UNAUTHORIZED).json({
         message: "Invalid username or password",
-    
       });
     }
 
-    // console.log(user)
-// console.log(process.env.JWT_SECRET)
     const userName = user[0].username;
     const userId = user[0].userid;
-// console.log(userNa)
 
-    const token=jwt.sign(
+    const token = jwt.sign(
       {
         userName,
         userId,
@@ -110,27 +103,26 @@ async function login(req, res) {
     );
 
     res.status(StatusCodes.OK).json({
-
-      message:"user login successfully",token,userName
-
-    })
+      message: "user login successfully",
+      token,
+      userName,
+    });
   } catch (error) {
-    // console.log(error.message);
+    console.log(error.message);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       error: "Internal Server Error",
       message: "Something Went Wrong .try again later!",
     });
   }
 }
+// End of Login function
 
-async function checkUser(req,  res) {
+async function checkUser(req, res) {
   const user = req.user;
-  // console.log(user)
-res.send({
-
-  user:user,
-  message:"User Verified"
-})
+  res.send({
+    user: user,
+    message: "User Verified",
+  });
 }
 
 module.exports = { register, login, checkUser };

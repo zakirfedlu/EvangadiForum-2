@@ -4,21 +4,21 @@ require("dotenv").config();
 const app = express();
 const PORT = 5500;
 //db conn
-const dbConn = require("./DB/dbConfig");
+const dbConn = require("./db/dbConfig");
 
 app.use(cors());
 //any requset alog with the ride they have to post json data
 app.use(express.json());
 //user middleware file
-const userRoute = require("./Routes/userRoute");
-const questionRoute = require("./Routes/questionRoute");
+const userRoute = require("./routes/userRoute");
+const questionRoute = require("./routes/questionRoute");
 const authMiddleware = require("./Middleware/authMiddleware");
 
 //!answer route
-const answerRoute = require("./Routes/answerRoute");
+const answerRoute = require("./routes/answerRoute");
 
 //!search route
- const searchData =require("./Routes/searchRoute")
+const searchData = require("./routes/searchRoute");
 
 //!questions middleware file
 
@@ -28,7 +28,7 @@ app.use("/api/que/", authMiddleware, questionRoute);
 app.use("/api/users", userRoute);
 app.use("/api/askQuestion", authMiddleware, questionRoute);
 app.use("/api/answer", authMiddleware, answerRoute);
-app.use("/api/search",authMiddleware,searchData)
+app.use("/api/search", authMiddleware, searchData);
 async function start() {
   try {
     const result = await dbConn.execute("select 'test'");

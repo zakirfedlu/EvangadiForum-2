@@ -4,17 +4,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useRef } from 'react';
 import axiosConfig from '../../../API/axiosConfig';
-import Login from '../Login/Login';
+
 const CreateAccount = ({ toggleAuth }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const email = useRef();
-  const firstName = useRef();
-  const lastName = useRef();
-  const userName = useRef();
-  const password = useRef();
+  const emailRef = useRef();
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const userNameRef = useRef();
+  const passwordRef = useRef();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -22,14 +22,15 @@ const CreateAccount = ({ toggleAuth }) => {
 
   const handleCreateAccount = async (e) => {
     e.preventDefault();
+    setError('');
 
     try {
       const response = await axiosConfig.post('/users/register', {
-        email: email.current.value,
-        first_name: firstName.current.value,
-        last_name: lastName.current.value,
-        username: userName.current.value,
-        password: password.current.value,
+        email: emailRef.current.value,
+        first_name: firstNameRef.current.value,
+        last_name: lastNameRef.current.value,
+        username: userNameRef.current.value,
+        password: passwordRef.current.value,
       });
 
       // On success, redirect to the login page
@@ -58,20 +59,20 @@ const CreateAccount = ({ toggleAuth }) => {
         )}
 
         <div className={style.input__group}>
-          <input ref={email} type="email" placeholder="Email" required />
+          <input ref={emailRef} type="email" placeholder="Email" required />
         </div>
 
         <div className={style.name__group}>
           <div className={style.input__group}>
-            <input ref={firstName} type="text" placeholder="First Name" required />
+            <input ref={firstNameRef} type="text" placeholder="First Name" required />
           </div>
           <div className={style.input__group}>
-            <input ref={lastName} type="text" placeholder="Last Name" required />
+            <input ref={lastNameRef} type="text" placeholder="Last Name" required />
           </div>
         </div>
 
         <div className={style.input__group}>
-          <input ref={userName} type="text" placeholder="User Name" required />
+          <input ref={userNameRef} type="text" placeholder="User Name" required />
         </div>
 
         <div className={style.input__group}>
@@ -80,7 +81,7 @@ const CreateAccount = ({ toggleAuth }) => {
               type={showPassword ? 'text' : 'password'}
               placeholder="Password"
               required
-              ref={password}
+              ref={passwordRef}
             />
             <span
               className={style.password__toggle}

@@ -22,7 +22,6 @@ function ProtectedRoutes() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data);
       SetUsers(data);
     } catch (error) {
       console.log(error.message);
@@ -35,9 +34,7 @@ function ProtectedRoutes() {
     checkUser();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>; //! Show loading state while checking user
-  }
+
 
   return (
     <authContext.Provider value={{ users, SetUsers }}>

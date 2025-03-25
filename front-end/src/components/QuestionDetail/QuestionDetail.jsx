@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { RxAvatar } from 'react-icons/rx';
 import Layout from '../../Layout';
-import { CircleLoader } from 'react-spinners'; 
+import { CircleLoader } from 'react-spinners';
 import axios from '../../API/axiosConfig';
 import styles from './QuestionDetail.module.css';
 import { authContext } from '../Util/ProtectedRoutes';
@@ -30,10 +30,10 @@ const QuestionDetail = () => {
       }));
     } catch (error) {
       console.error('Error fetching question:', error);
-    } 
+    }
     setLoading(false);
   };
-console.warn(question)
+  console.warn(question)
   // Fetch the question and answers on mount
   useEffect(() => {
     fetchData();
@@ -70,7 +70,7 @@ console.warn(question)
   if (loading) {
     return (
       <Layout>
-        <div className={styles.loading } style={{marginto:"50vh",}}>
+        <div className={styles.loading} style={{ marginto: "50vh", }}>
           <CircleLoader size={25} color="#3498db" />
         </div>
       </Layout>

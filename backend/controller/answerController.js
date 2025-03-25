@@ -1,6 +1,4 @@
-const jwt = require("jsonwebtoken");
-const dbConn = require("../DB/dbConfig");
-const bcrypt = require("bcrypt");
+const dbConn = require("../db/dbConfig");
 
 const { StatusCodes } = require("http-status-codes");
 async function getAnswer(req, res) {
@@ -41,7 +39,7 @@ async function getAnswer(req, res) {
     }
 
     // Format and send response with structured data
-    const formattedAnswers = rows.map(answer => ({
+    const formattedAnswers = rows.map((answer) => ({
       answerId: answer.answer_id,
       content: answer.content,
       username: answer.username,
@@ -50,7 +48,7 @@ async function getAnswer(req, res) {
     }));
 
     return res.json({
-      questionTitle: rows[0].title,  // Assuming all answers are for the same question
+      questionTitle: rows[0].title, // Assuming all answers are for the same question
       answers: formattedAnswers,
     });
   } catch (err) {

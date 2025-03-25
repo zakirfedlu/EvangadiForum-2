@@ -122,7 +122,7 @@ async function login(req, res) {
 async function checkUser(req, res) {
   const user = req.user;
   res.send({
-    user: user,
+    user,
     message: "User Verified",
   });
 }

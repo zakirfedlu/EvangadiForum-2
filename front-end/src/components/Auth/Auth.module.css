@@ -54,7 +54,21 @@
 .form__wrapper {
   animation: fadeSlide 0.3s ease-in-out;
 }
-
+.login__register_btn {
+  border: none;
+  /* background: #f0c14b; */
+  border-radius: 5px;
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login__register_btn:hover {
+  background-color: lightgray;
+}
 /* Form Styling */
 .form {
   display: flex;
@@ -222,7 +236,6 @@
     flex-direction: column;
     gap: 10px;
   }
-
 }
 
 @media (max-width: 576px) {
@@ -247,5 +260,4 @@
   .terms {
     font-size: 12px;
   }
-
 }

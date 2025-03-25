@@ -3,10 +3,12 @@ import style from '../Auth.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import axiosConfig from '../../../API/axiosConfig';
+import { PuffLoader } from 'react-spinners';
 
 const CreateAccount = ({ toggleAuth }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const emailRef = useRef();
@@ -89,9 +91,8 @@ const CreateAccount = ({ toggleAuth }) => {
             </span>
           </div>
         </div>
-
         <button type="submit" className={style.join__button}>
-          Agree and Join
+          {isLoading ? (<PuffLoader color="#000" size={20} ></PuffLoader>) : ('Agree and Join')}
         </button>
 
         <p className={style.terms}>

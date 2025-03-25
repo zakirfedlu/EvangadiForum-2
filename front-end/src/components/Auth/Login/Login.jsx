@@ -114,16 +114,10 @@ const Login = ({ toggleAuth }) => {
                 </div>
                 <button
                     type="submit"
-                    className={style.submit__button}
+                    className={style.join__button}
                     disabled={isLoading} // Disable button during loading
                 >
-                    {isLoading ? (
-                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                            <PuffLoader color="#fff" />
-                        </div>
-                    ) : (
-                        "Login"
-                    )}
+                    {isLoading ? (<PuffLoader color="#000" size={20} ></PuffLoader>) : ('Login')}
                 </button>
                 <p className={style.create__account}>
                     <Link to="/" onClick={toggleAuth}>

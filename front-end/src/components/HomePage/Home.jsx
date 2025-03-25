@@ -17,12 +17,15 @@ const Home = () => {
   const questionsPerPage = 4; // Number of questions to display per page
 
   const { users } = useContext(authContext);
-  const userName = users?.user?.userName || "Guest";
+  console.log(users)
+  // const userName = ;
+
+  const token = localStorage.getItem("token");
+  console.log(token)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("token");
 
         if (!token) {
           console.error("No token found, authentication required.");
@@ -37,7 +40,7 @@ const Home = () => {
 
         setData(response.data?.questions || []);
         setLoading(false);
-        console.log(response.data);
+        console.log(response.data.username);
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
@@ -97,7 +100,7 @@ const Home = () => {
             <span
               style={{ color: "#ff6200", fontWeight: "600", fontSize: "18px" }}
             >
-              {userName}
+              {/* {userName} */}
             </span>
           </p>
         </div>

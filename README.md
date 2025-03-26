@@ -53,7 +53,7 @@ Frontend Team
 📜 Contribution Guidelines
  Clone the Repository
  
-       git clone https://github.com/YOUR_GITHUB_USERNAME/evangadi-forum.git
+       git clone https://github.com/Samuelgit3919/evangadi-forum.git
        cd evangadi-forum
  Create a Feature Branch
  

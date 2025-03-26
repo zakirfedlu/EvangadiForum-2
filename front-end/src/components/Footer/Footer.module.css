@@ -4,18 +4,14 @@
   justify-content: space-around;
   align-items: flex-start;
   background-color: #1a2526;
-  padding: 20px;
+  padding: 22px;
   min-height: 150px;
   color: #fff;
   font-family: Arial, sans-serif;
-  position: fixed; /* Make it stick */
-  bottom: 0;
-  left: 0;
+
   width: 100%;
   box-sizing: border-box;
   z-index: 2;
-
-
 }
 
 .footer__logo {
@@ -106,43 +102,6 @@
   color: #fff;
   padding-left: 5px; /* Subtle hover animation */
 }
-
-/* !  samiii  bosss need to finsh this Responsive adjustments !*/
-/* @media (max-width: 768px) {
-  .footer__container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 30px 15px;
-    min-height: auto; 
-    position: relative; 
-  }
-
-  .footer__logo,
-  .footer__links,
-  .footer__contact {
-    margin-bottom: 30px;
-    display: block;
-  }
-
-  .footer__logo ul {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .footer__logo ul li {
-    margin: 0 10px 10px 10px; 
-  }
-
-  .footer__links ul,
-  .footer__contact ul {
-    display: block; 
-  }
-
-  .footer__links ul li,
-  .footer__contact ul li { 
-  }
-} */
 
 /* Small devices (below 480px) */
 @media (max-width: 480px) {

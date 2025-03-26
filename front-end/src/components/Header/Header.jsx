@@ -23,13 +23,17 @@ const Header = () => {
     }
   }, []);
 
-  // Handle log out
-  const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove token from localStorage
-    console.log("Token removed:", localStorage.getItem("token")); 
-    setIsLoggedIn(false); 
-    navigate("/login"); 
-  };
+
+    // Handle log out
+    const handleLogout = () => {
+        localStorage.removeItem('token'); // Remove token from localStorage
+        console.log('Token removed:', localStorage.getItem('token')); // Check if token is removed
+        setIsLoggedIn(false); 
+        navigate('/login'); // Redirect to login page
+    };
+
+ 
+
 
   return (
     <div className={style.header__container}>
@@ -39,9 +43,13 @@ const Header = () => {
         </Link>
       </div>
 
-      <div className={style.hamburger} onClick={toggleMenu}>
-        {isMenuOpen ? <FiX size={30} /> : <FiMenu size={30} />}
-      </div>
+
+           
+            <div className={style.hamburger} onClick={toggleMenu}>
+                {isMenuOpen ? <FiX size={30} /> : <FiMenu size={30} />}
+            </div>
+
+    
 
       <div className={`${style.header__nav} ${isMenuOpen ? style.active : ""}`}>
         <ul className={style.header__nav__list}>

@@ -7,7 +7,9 @@ import style from './Footer.module.css'
 
 const Footer = () => {
     return (
+        // footer container
         <footer className={style.footer__container}>
+            {/* first div */}
             <div className={style.footer__logo}>
                 <img src={logo} alt="Evangadi logo" />
                 <ul>
@@ -16,6 +18,8 @@ const Footer = () => {
                     <li><a href="#"><FiYoutube /></a></li>
                 </ul>
             </div>
+
+            {/* second div */}
             <div className={style.footer__links}>
                 <ul>
                     <li><h2>Useful Links</h2></li>
@@ -24,6 +28,8 @@ const Footer = () => {
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
+
+            {/* third div */}
             <div className={style.footer__contact}>
                 <ul>
                     <li><h2>Contact Info</h2></li>

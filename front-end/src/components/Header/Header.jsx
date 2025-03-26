@@ -27,7 +27,7 @@ const Header = () => {
     const handleLogout = () => {
         localStorage.removeItem('token'); // Remove token from localStorage
         console.log('Token removed:', localStorage.getItem('token')); // Check if token is removed
-        setIsLoggedIn(false); // Update login state
+        setIsLoggedIn(false); 
         navigate('/login'); // Redirect to login page
     };
 
@@ -39,7 +39,7 @@ const Header = () => {
                 </Link>
             </div>
 
-            {/* Hamburger Icon for Mobile */}
+           
             <div className={style.hamburger} onClick={toggleMenu}>
                 {isMenuOpen ? <FiX size={30} /> : <FiMenu size={30} />}
             </div>

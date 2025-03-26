@@ -18,7 +18,12 @@
   margin-top: 0;
   color: #333;
 }
-
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+}
 .questionText {
   font-size: 18px;
   font-weight: 500;

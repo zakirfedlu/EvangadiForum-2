@@ -95,6 +95,8 @@ async function login(req, res) {
     const userName = user[0].username;
     const userId = user[0].userid;
 
+    console.log(userName);
+
     const token = jwt.sign(
       {
         userName,
@@ -120,11 +122,10 @@ async function login(req, res) {
 // End of Login function
 
 async function checkUser(req, res) {
-  const user = req.user;
-  res.send({
-    user,
-    message: "User Verified",
-  });
+  const username = req.user.userName;
+  const userid = req.user.userId;
+  console.log(userid, username);
+  res.status(StatusCodes.OK).json({ msg: "sami", username, userid });
 }
 
 async function logout(req, res) {

@@ -1,34 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { FiLogOut, FiMenu, FiX } from 'react-icons/fi'; // For hamburger and close icons
+import { FiLogOut, FiMenu, FiX } from 'react-icons/fi';
 import style from './Header.module.css';
 import logo from '../../assets/images/HeaderLogo.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    //!!! Check if the user is logged in on component mount
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            setIsLoggedIn(true); // User is logged in
+            setIsLoggedIn(true);
         } else {
-            setIsLoggedIn(false); // User is not logged in
+            setIsLoggedIn(false);
         }
     }, []);
 
-    // Handle log out
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Remove token from localStorage
-        console.log('Token removed:', localStorage.getItem('token')); // Check if token is removed
-        setIsLoggedIn(false); // Update login state
-        navigate('/login'); // Redirect to login page
+        localStorage.removeItem('token');
+        console.log('Token removed:', localStorage.getItem('token'));
+        setIsLoggedIn(false);
+        navigate('/login');
     };
 
     return (
@@ -39,12 +37,9 @@ const Header = () => {
                 </Link>
             </div>
 
-            {/* Hamburger Icon for Mobile */}
             <div className={style.hamburger} onClick={toggleMenu}>
                 {isMenuOpen ? <FiX size={30} /> : <FiMenu size={30} />}
             </div>
-
-            {/* Navigation Menu */}
             <div className={`${style.header__nav} ${isMenuOpen ? style.active : ''}`}>
                 <ul className={style.header__nav__list}>
                     <li>
@@ -54,7 +49,6 @@ const Header = () => {
                         <Link to="/howItWorks" onClick={() => setIsMenuOpen(false)}>How it Works</Link>
                     </li>
                     <li>
-                        {/* Conditional Rendering for Sign In/Log Out */}
                         {isLoggedIn ? (
                             <Link to="/login" onClick={handleLogout} className={style.logOut}>
                                 <button id='log-out'>

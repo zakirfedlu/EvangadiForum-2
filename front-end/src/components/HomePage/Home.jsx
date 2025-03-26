@@ -17,11 +17,12 @@ const Home = () => {
   const questionsPerPage = 4; // Number of questions to display per page
 
   const { users } = useContext(authContext);
-  console.log(users)
-  // const userName = ;
+
+  // console.log(users)
+  const userName = users?.username || localStorage.getItem('userName') || 'Guest';
 
   const token = localStorage.getItem("token");
-  console.log(token)
+  // console.log(users.username)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +41,7 @@ const Home = () => {
 
         setData(response.data?.questions || []);
         setLoading(false);
-        console.log(response.data.username);
+        console.log(response.data.questions[0].username);
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
@@ -97,11 +98,13 @@ const Home = () => {
           </button>
           <p className={styles.welcome}>
             Welcome:{" "}
-            <span
-              style={{ color: "#ff6200", fontWeight: "600", fontSize: "18px" }}
-            >
-              {/* {userName} */}
-            </span>
+            {users && (
+              <span
+                style={{ color: "#ff6200", fontWeight: "600", fontSize: "18px" }}
+              >
+                {userName}
+              </span>
+            )}
           </p>
         </div>
         <div className={styles.search}>

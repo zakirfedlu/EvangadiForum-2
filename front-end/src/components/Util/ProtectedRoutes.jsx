@@ -18,13 +18,15 @@ function ProtectedRoutes() {
     }
     try {
       const { data } = await axiosConfig.get("users/check", {
+
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       SetUsers(data);
+      // console.log(data)
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       navigate("/login");
     }
     setLoading(false);

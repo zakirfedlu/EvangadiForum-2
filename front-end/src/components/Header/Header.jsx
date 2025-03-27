@@ -9,6 +9,8 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  // context for theme switching
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const toggleMenu = () => {

@@ -134,4 +134,33 @@ async function logout(req, res) {
   });
 }
 
+// async function googleLogin(req, res) {
+//   const { token } = req.body;
+//   if (!token) {
+//     return res.status(StatusCodes.BAD_REQUEST).json({
+//       error: "Bad Request",
+//       message: "Token is required",
+//     });
+//   }
+//   try {
+//     const ticket = await client.verifyIdToken({
+//       idToken: token,
+//       audience: process.env.GOOGLE_CLIENT_ID,
+//     });
+//     const payload = ticket.getPayload();
+//     // Create or find user in your DB, generate JWT
+//     const appToken = jwt.sign(
+//       {
+//         userName: payload.name,
+//         userId: payload.sub,
+//       },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "1d" }
+//     );
+//     res.json({ token: appToken, user: payload });
+//   } catch (error) {
+//     res.status(400).json({ message: "Invalid Google token" });
+//   }
+// }
+
 module.exports = { register, login, checkUser, logout };

@@ -5,21 +5,31 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "../../../API/axiosConfig";
-import { PuffLoader, ScaleLoader } from "react-spinners"; // Import ScaleLoader for the animation
+import { PuffLoader } from "react-spinners";
 
 const Login = ({ toggleAuth }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState(null);
     const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(false); // New loading state
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const emailRef = useRef();
     const passwordRef = useRef();
+
+    // Check localStorage for token on mount
+    useEffect(() => {
+        const storedToken = localStorage.getItem("googleToken");
+        const storedUser = localStorage.getItem("user");
+        if (storedToken && storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
+    // Handle email/password login
     const handleSubmit = async (e) => {
         e.preventDefault();
         const emailValue = emailRef.current.value;
@@ -30,52 +40,65 @@ const Login = ({ toggleAuth }) => {
             return;
         }
 
-        setIsLoading(true); // Start loading animation
-        setError(""); // Clear previous errors
+        setIsLoading(true);
+        setError("");
 
         try {
             const { data } = await axios.post("/users/login", {
                 email: emailValue,
                 password: passValue,
             });
-            console.log(data);
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data.user));
             navigate("/home");
         } catch (error) {
-            console.warn(error.message);
             setError(error.response?.data?.message || "An error occurred. Please try again.");
         } finally {
-            setIsLoading(false); // Stop loading animation regardless of success or failure
+            setIsLoading(false);
         }
     };
 
-    const handleGoogleSuccess = (credentialResponse) => {
+    // Handle Google login success
+    const handleGoogleSuccess = async (credentialResponse) => {
+        setIsLoading(true);
+        setError("");
         try {
-            const userObject = jwtDecode(credentialResponse.credential);
+            const token = credentialResponse.credential; // Google ID token
+            const userObject = jwtDecode(token); // Decode token to get user info
+
+            // Send Google token to backend for validation
+            const { data } = await axios.post("/users/google-login", { token });
+
+            // Store app token and user data in localStorage
+            localStorage.setItem("googleToken", token); // Store Google token
+            localStorage.setItem("token", data.token); // Store your app's token
+            localStorage.setItem("user", JSON.stringify(userObject));
+
             setUser(userObject);
             console.log("Google Login Success:", userObject);
-            localStorage.setItem("user", JSON.stringify(userObject));
             navigate("/home");
         } catch (error) {
-            console.error("Error decoding Google token:", error);
+            console.error("Google Login Error:", error);
+            setError("Google login failed. Please try again.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
+    // Handle Google login failure
     const handleGoogleFailure = (error) => {
         console.error("Google Login Failed:", error);
+        setError("Google login failed. Please try again.");
     };
 
+    // Handle logout
     const handleLogout = () => {
         googleLogout();
         setUser(null);
+        localStorage.removeItem("googleToken");
+        localStorage.removeItem("token");
         localStorage.removeItem("user");
     };
-    useEffect(() => {
-        setInterval(() => {
-            setIsLoading(false);
-        }, 5000);
-    }, []);
 
     return (
         <div className={`${style.form__container} ${style.login}`}>
@@ -94,7 +117,7 @@ const Login = ({ toggleAuth }) => {
                         type="email"
                         placeholder="Your Email"
                         required
-                        disabled={isLoading} // Disable input during loading
+                        disabled={isLoading}
                     />
                 </div>
                 <div className={style.input__group}>
@@ -103,7 +126,7 @@ const Login = ({ toggleAuth }) => {
                         placeholder="Password"
                         ref={passwordRef}
                         required
-                        disabled={isLoading} // Disable input during loading
+                        disabled={isLoading}
                     />
                     <span
                         className={style.password__toggle}
@@ -115,15 +138,17 @@ const Login = ({ toggleAuth }) => {
                 <button
                     type="submit"
                     className={style.join__button}
-                    disabled={isLoading} // Disable button during loading
+                    disabled={isLoading}
                 >
-                    {isLoading ? (<PuffLoader color="#000" size={20} ></PuffLoader>) : ('Login')}
+                    {isLoading ? <PuffLoader color="#000" size={20} /> : "Login"}
                 </button>
                 <p className={style.create__account}>
                     <Link to="/" onClick={toggleAuth}>
                         Create an account
                     </Link>
                 </p>
+
+                
                 {/* Google Login Button */}
                 <div style={{ marginTop: "20px" }}>
                     {user ? (
@@ -137,6 +162,7 @@ const Login = ({ toggleAuth }) => {
                             onSuccess={handleGoogleSuccess}
                             onError={handleGoogleFailure}
                             useOneTap
+                            disabled={isLoading}
                         />
                     )}
                 </div>

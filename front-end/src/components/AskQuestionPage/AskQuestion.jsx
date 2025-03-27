@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./AskQueation.module.css";
 import Layout from "../../Layout";
 import axios from "../../API/axiosConfig";
+import { FiLoader } from "react-icons/fi";
 
 const AskQuestion = () => {
   const [title, setTitle] = useState("");
@@ -11,48 +12,41 @@ const AskQuestion = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
 
-    // Retrieve the token from localStorage
     const token = localStorage.getItem("token");
 
-    // Ensure token exists
     if (!token) {
       console.log("No token found, please log in.");
       return;
     }
 
-    // Prepare the question data to send
     const questionData = {
       title: title,
       description: description,
     };
 
-    setLoading(true); // Set loading to true when submission begins
+    setLoading(true);
 
     try {
-      // Send question data to backend with Authorization header
       const response = await axios.post("/askQuestion", questionData, {
         headers: {
-          Authorization: `Bearer ${token}`, // Attach token in request header
+          Authorization: `Bearer ${token}`,
         },
       });
 
       console.log("Question posted successfully:", response.data);
-
-      // Navigate to home after successful submission
-      navigate("/home"); // This will navigate to /home after posting the question
+      navigate("/home"); // Navigate to home after posting
     } catch (error) {
-      console.log("Error posting question:", error.message); // Log error if the request fails
+      console.log("Error posting question:", error.message);
     } finally {
-      setLoading(false); // Set loading to false after request completes
+      setLoading(false);
     }
   };
 
   return (
     <Layout>
       <div className={styles.container}>
-        {/* Steps Section */}
         <div className={styles.stepsSection}>
           <h1 className={styles.heading}>Steps to write a good question</h1>
           <ul className={styles.stepsList}>
@@ -63,7 +57,6 @@ const AskQuestion = () => {
           </ul>
         </div>
 
-        {/* Form Section */}
         <div className={styles.AskQuestion}>
           <h1 className={styles.heading}>Ask a public question</h1>
           <Link to="/home" className={styles.link}>
@@ -75,22 +68,27 @@ const AskQuestion = () => {
                 type="text"
                 placeholder="Title"
                 className={styles.input}
-                value={title} // Controlled input
+                value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                required
               />
               <textarea
                 placeholder="Question Description..."
                 className={styles.textarea}
-                value={description} // Controlled input
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                required
               ></textarea>
               <button
                 type="submit"
                 className={styles.submitButton}
                 disabled={loading}
               >
-                {loading ? "Posting..." : "Post Your Question"}{" "}
-                {/* Show loading text */}
+                {loading ? (
+                  <FiLoader className={styles.spinner} />
+                ) : (
+                  "Post Your Question"
+                )}
               </button>
             </form>
           </div>

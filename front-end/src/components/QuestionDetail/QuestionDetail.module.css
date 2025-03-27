@@ -16,7 +16,7 @@
   font-weight: bold;
   margin-bottom: 10px;
   margin-top: 0;
-  color: #333;
+  color: #e55a00;
 }
 .loading {
   display: flex;
@@ -27,13 +27,13 @@
 .questionText {
   font-size: 18px;
   font-weight: 500;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 5px;
 }
 
 .subText {
   font-size: 14px;
-  color: #666;
+  color: var(--text-color);
   margin-bottom: 10px;
 }
 
@@ -64,14 +64,14 @@
 }
 
 .avatar {
-  color: #999;
+  color: var(--text-color);
   width: 50px;
   height: 50px;
 }
 
 .username {
   font-size: 14px;
-  color: #333;
+  color: var(--text-color);
 }
 
 .answerContent {
@@ -80,7 +80,7 @@
 
 .answerText {
   font-size: 16px;
-  color: #333;
+  color: var(--text-color);
 }
 
 /* Form Section */
@@ -110,7 +110,7 @@
   height: 100px;
   padding: 10px;
   font-size: 16px;
-  color: #333;
+  color: var(--text-color);
   border: 1px solid #e0e0e0;
   border-radius: 5px;
   resize: vertical;

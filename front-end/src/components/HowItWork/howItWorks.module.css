@@ -3,11 +3,12 @@
   margin: 0 auto;
   padding: 40px 20px;
   text-align: center;
-  background: linear-gradient(
+  /* background: linear-gradient(
     135deg,
     #f5f7fa 0%,
     #e4e7eb 100%
-  ); /* Subtle gradient */
+  ); Subtle gradient */
+  background-color: var(--background-color);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
@@ -15,14 +16,14 @@
 .heading {
   font-size: 2.2rem;
   font-weight: 700;
-  color: #2a2a2a;
+  color: var(--text-color);
   margin-bottom: 15px;
   letter-spacing: 0.5px;
 }
 
 .introduction {
   font-size: 1.2rem;
-  color: #555;
+  color: var(--text-color);
   margin-bottom: 35px;
   font-style: italic;
   line-height: 1.6;
@@ -43,7 +44,7 @@
   gap: 20px;
   text-align: left;
   padding: 20px;
-  background: #fff;
+  background-color: var(--background-color);
   border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -57,7 +58,7 @@
   width: 45px;
   height: 45px;
   background: #ff6200; /* Evangadi-inspired orange color */
-  color: #fff;
+  color: var(--text-color);
   font-size: 1.4rem;
   font-weight: 600;
   display: flex;
@@ -75,13 +76,13 @@
 .stepTitle {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 8px;
 }
 
 .stepDescription {
   font-size: 1rem;
-  color: #666;
+  color: var(--text-color);
   line-height: 1.6;
 }
 

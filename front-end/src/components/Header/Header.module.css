@@ -40,17 +40,25 @@
   color: var(--primary-color);
 }
 
+/* Active link styling */
+.activeLink {
+  color: var(--primary-color); /* Highlight active link */
+  font-weight: 700; /* Bold the active link */
+  border-bottom: 2px solid var(--primary-color); /* Underline active link */
+}
+
 .header__nav__list li .logOut {
   background-color: var(--button-color);
   color: var(--text-color);
   border: none;
   text-transform: uppercase;
   font-weight: 500;
-  /* padding: 5px 10px; */
+  padding: 5px 10px;
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 .header__nav__list li .logOut div {
   display: flex;
   gap: 3px;
@@ -68,7 +76,7 @@
   border: none;
   text-transform: uppercase;
   font-weight: 500;
-  /* padding: 5px 10px; */
+  padding: 5px 10px;
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -81,9 +89,9 @@
 
 /* Hamburger Icon (hidden on desktop) */
 .hamburger {
-  display: none; /* Hidden by default on larger screens */
+  display: none;
   cursor: pointer;
-  color: #333;
+  color: var(--text-color);
 }
 
 .themeToggle {
@@ -107,23 +115,23 @@
 /* Tablet (768px and below) */
 @media (max-width: 768px) {
   .header__container {
-    padding: 10px 15px; /* Reduce padding for smaller screens */
+    padding: 10px 15px;
   }
 
   .header__logo img {
-    height: 25px; /* Slightly smaller logo */
+    height: 25px;
   }
 
   .header__nav__list {
-    gap: 15px; /* Reduce gap between nav items */
+    gap: 15px;
   }
 
   .header__nav__list li a {
-    font-size: 14px; /* Smaller font size */
+    font-size: 14px;
   }
 
   .header__nav__list button {
-    padding: 5px 20px; /* Smaller button */
+    padding: 5px 20px;
     font-size: 14px;
   }
 }
@@ -131,44 +139,50 @@
 /* Mobile (576px and below) */
 @media (max-width: 576px) {
   .header__container {
-    flex-wrap: wrap; /* Allow wrapping if needed */
+    flex-wrap: wrap;
   }
 
   .hamburger {
-    display: block; /* Show hamburger icon on mobile */
+    display: block;
   }
 
   .header__nav {
-    display: none; /* Hide the nav by default on mobile */
+    display: none;
     width: 100%;
     position: absolute;
-    top: 60px; /* Adjust based on header height */
+    top: 60px;
     left: 0;
-    background-color: #fff;
+    background-color: var(--headerBackground); /* Use theme variable */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
   }
 
   .header__nav.active {
-    display: block; /* Show nav when active (hamburger clicked) */
+    display: block;
   }
 
   .header__nav__list {
-    flex-direction: column; /* Stack nav items vertically */
+    flex-direction: column;
     align-items: center;
     padding: 20px 0;
   }
 
   .header__nav__list li {
-    margin: 10px 0; /* Add spacing between items */
+    margin: 10px 0;
   }
 
   .header__nav__list li a {
-    font-size: 16px; /* Larger font for better tap targets */
+    font-size: 16px;
   }
 
   .header__nav__list button {
-    padding: 8px 40px; /* Larger button for better tap target */
+    padding: 8px 40px;
     font-size: 16px;
+  }
+
+  /* Ensure dark mode styles are applied */
+  .header__nav__list li a,
+  .hamburger {
+    color: var(--text-color); /* Ensure text color adapts to dark mode */
   }
 }

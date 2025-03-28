@@ -10,10 +10,7 @@
   position: relative;
   bottom: 0;
   width: 100%;
-<<<<<<< HEAD
-=======
   box-sizing: border-box;
->>>>>>> c928fdb44ae62c75d04d82f0dd8b0a20bb71c560
   z-index: 1000;
 }
 
@@ -94,8 +91,6 @@
 
   .footer__logo ul {
     justify-content: center;
-<<<<<<< HEAD
-=======
   }
 }
 
@@ -117,6 +112,5 @@
   .footer__links ul li a,
   .footer__contact ul li a {
     font-size: 13px;
->>>>>>> c928fdb44ae62c75d04d82f0dd8b0a20bb71c560
   }
 }

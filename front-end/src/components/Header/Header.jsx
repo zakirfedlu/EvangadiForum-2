@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { FiLogOut, FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi"; // Icons for menu and logout
+import { FiLogOut, FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 import style from "./Header.module.css";
 import logo from "../../assets/images/HeaderLogo.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,8 +9,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-
-  // context for theme switching
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   const toggleMenu = () => {
@@ -28,12 +26,22 @@ const Header = () => {
     navigate("/login");
   };
 
+  // Add this function to handle logo click
+  const handleLogoClick = () => {
+    if (isLoggedIn) {
+      navigate("/home");
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div className={style.header__container}>
       <div className={style.header__logo}>
-        <Link to="/">
+
+        <div onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
           <img src={logo} alt="Evangadi Logo" />
-        </Link>
+        </div>
       </div>
 
       <div className={style.hamburger} onClick={toggleMenu}>
@@ -67,7 +75,6 @@ const Header = () => {
           </li>
           <li>
             <button onClick={toggleTheme} className={style.themeToggle}>
-              {/*Implemented different i cons for different theme*/}
               {theme === "light" ? <FiMoon size={20} /> : <FiSun size={20} />}
             </button>
           </li>

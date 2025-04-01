@@ -53,7 +53,7 @@ const QuestionDetail = () => {
     setPostingMessage('Posting your answer...');
 
     try {
-      const response = await axios.post(`/answer/${id}`,
+      await axios.post(`/answer/${id}`,
         { answer },
         {
           headers: {

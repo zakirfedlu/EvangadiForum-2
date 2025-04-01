@@ -38,6 +38,14 @@
   gap: 25px;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+  min-height: 100vh;
+}
+
 .stepItem {
   display: flex;
   align-items: flex-start;
@@ -57,7 +65,8 @@
 .stepNumber {
   width: 45px;
   height: 45px;
-  background: #ff6200; /* Evangadi-inspired orange color */
+  background: #ff6200;
+  /* Evangadi-inspired orange color */
   color: var(--text-color);
   font-size: 1.4rem;
   font-weight: 600;

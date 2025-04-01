@@ -8,11 +8,23 @@
   overflow: hidden;
   background-color: var(--background-color);
 }
+
 .login {
   width: 450px;
   text-align: center;
   /* width: 450px; */
 }
+
+.button__loading {
+  width: 100%;
+  height: 10px;
+  margin-top: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .create {
   width: 450px;
   color: #ff6200;
@@ -56,6 +68,7 @@
 .form__wrapper {
   animation: fadeSlide 0.3s ease-in-out;
 }
+
 .login__register_btn {
   border: none;
   /* background: #f0c14b; */
@@ -68,9 +81,11 @@
   align-items: center;
   justify-content: center;
 }
+
 .login__register_btn:hover {
   background-color: lightgray;
 }
+
 /* Form Styling */
 .form {
   display: flex;
@@ -79,7 +94,8 @@
   align-items: center;
   height: 450px;
   width: 100%;
-  max-width: 400px; /* Fixed width for both forms */
+  max-width: 400px;
+  /* Fixed width for both forms */
   background-color: var(--background-color);
   padding: 30px;
   border-radius: 10px;
@@ -98,6 +114,7 @@
   color: var(--text-color);
   margin-bottom: 20px;
 }
+
 .create__account a {
   color: #ff6200;
 }
@@ -143,7 +160,8 @@
 
 .name__group .input__group {
   flex: 1;
-  margin-bottom: 0; /* Override the default margin for name fields */
+  margin-bottom: 0;
+  /* Override the default margin for name fields */
 }
 
 /* Password Wrapper and Toggle */
@@ -175,6 +193,7 @@
   transition: background-color 0.3s ease;
   margin-bottom: 15px;
 }
+
 .submit__button a,
 .join__button a {
   color: #fff;
@@ -182,19 +201,23 @@
 }
 
 .submit__button {
-  background-color: #ff6200; /* Orange for Login */
+  background-color: #ff6200;
+  /* Orange for Login */
 }
 
 .submit__button:hover {
-  background-color: #e55a00; /* Darker orange on hover */
+  background-color: #e55a00;
+  /* Darker orange on hover */
 }
 
 .join__button {
-  background-color: #007bff; /* Blue for Create Account */
+  background-color: #007bff;
+  /* Blue for Create Account */
 }
 
 .join__button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
+  /* Darker blue on hover */
 }
 
 /* Terms Text (Create Account) */
@@ -210,6 +233,7 @@
     opacity: 0;
     transform: translateX(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -231,7 +255,8 @@
 
   .form {
     margin: 0 auto;
-    max-width: 80%; /* Ensure form takes full width on smaller screens */
+    max-width: 80%;
+    /* Ensure form takes full width on smaller screens */
   }
 
   .name__group {

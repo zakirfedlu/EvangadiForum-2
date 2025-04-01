@@ -140,7 +140,10 @@ const Login = ({ toggleAuth }) => {
                     className={style.join__button}
                     disabled={isLoading}
                 >
-                    {isLoading ? <PuffLoader color="#000" size={20} /> : "Login"}
+                    <div className={style.button__loading}>
+
+                        {isLoading ? <PuffLoader color="#000" size={20} /> : "Login"}
+                    </div>
                 </button>
                 <p className={style.create__account}>
                     <Link to="/" onClick={toggleAuth}>
@@ -148,7 +151,7 @@ const Login = ({ toggleAuth }) => {
                     </Link>
                 </p>
 
-                
+
                 {/* Google Login Button */}
                 <div style={{ marginTop: "20px" }}>
                     {user ? (

@@ -1,0 +1,79 @@
+/* Description Container (Right Column) */
+.description__container {
+  flex: 1;
+  max-width: 500px;
+}
+
+.description__container h5 {
+  font-size: 14px;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.description__container h2 {
+  font-size: 28px;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.description__container p {
+  font-size: 14px;
+  color: var(--text-color);
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+.description__container h4 {
+  color: #e55a00;
+}
+
+/* How It Works Button */
+.how__it__works {
+  background-color: #ff6200;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.how__it__works:hover {
+  background-color: #e55a00;
+}
+
+@media (max-width: 768px) {
+  .description__container {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .description__container h2 {
+    font-size: 24px;
+  }
+
+  .how__it__works {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .description__container h5 {
+    font-size: 12px;
+  }
+
+  .description__container h2 {
+    font-size: 20px;
+  }
+
+  .description__container p {
+    font-size: 12px;
+  }
+
+  .how__it__works {
+    font-size: 12px;
+  }
+}

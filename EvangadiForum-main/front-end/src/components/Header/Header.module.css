@@ -1,0 +1,188 @@
+.header__container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--headerBackground);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header__logo img {
+  width: auto;
+  height: 30px;
+  object-fit: contain;
+}
+
+.header__nav__list {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header__nav__list li a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.header__nav__list li a:hover {
+  color: var(--primary-color);
+}
+
+/* Active link styling */
+.activeLink {
+  color: var(--primary-color); /* Highlight active link */
+  font-weight: 700; /* Bold the active link */
+  border-bottom: 2px solid var(--primary-color); /* Underline active link */
+}
+
+.header__nav__list li .logOut {
+  background-color: var(--button-color);
+  color: var(--text-color);
+  border: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header__nav__list li .logOut div {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.header__nav__list .logOut:hover {
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+.header__nav__list .signIn {
+  background-color: var(--button-color);
+  color: var(--text-color);
+  border: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header__nav__list .signIn:hover {
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+/* Hamburger Icon (hidden on desktop) */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.themeToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.themeToggle:hover {
+  color: var(--primary-color);
+}
+
+/* Responsive Styles */
+
+/* Tablet (768px and below) */
+@media (max-width: 768px) {
+  .header__container {
+    padding: 10px 15px;
+  }
+
+  .header__logo img {
+    height: 25px;
+  }
+
+  .header__nav__list {
+    gap: 15px;
+  }
+
+  .header__nav__list li a {
+    font-size: 14px;
+  }
+
+  .header__nav__list button {
+    padding: 5px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile (576px and below) */
+@media (max-width: 576px) {
+  .header__container {
+    flex-wrap: wrap;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .header__nav {
+    display: none;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: var(--headerBackground); /* Use theme variable */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .header__nav.active {
+    display: block;
+  }
+
+  .header__nav__list {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+  }
+
+  .header__nav__list li {
+    margin: 10px 0;
+  }
+
+  .header__nav__list li a {
+    font-size: 16px;
+  }
+
+  .header__nav__list button {
+    padding: 8px 40px;
+    font-size: 16px;
+  }
+
+  /* Ensure dark mode styles are applied */
+  .header__nav__list li a,
+  .hamburger {
+    color: var(--text-color); /* Ensure text color adapts to dark mode */
+  }
+}

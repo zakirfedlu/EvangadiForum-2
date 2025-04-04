@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 
+  :root selector allows us to define global CSS variables, which can be accessed anywhere in the CSS file.
+  These variables define color values for light and dark themes. 
+  The light theme defaults are set here (white background, black text, blue primary color, etc.).
+*/
+:root {
+  --background-color: #ffffff;
+  --headerBackground: #ffffff;
+  --text-color: #333333; /* Normal text color */
+  --button-text-color: #ffffff; /* Button text color */
+  --primary-color: #007bff;
+  --button-color: #007bff;
+  --input-background: #f9f9f9;
+  --input-border: #cccccc;
+}
+
+/* 
+  Dark theme overrides the default CSS variables. When the "data-theme" attribute is set to "dark", 
+  these values will be applied to switch to dark mode styling.
+*/
+[data-theme="dark"] {
+  /* --background-color: #000000; */
+  --background-color: #0b1d31;
+  --headerBackground: #1a2526;
+  --text-color: #ffffff; /* Normal text color for dark mode */
+  --button-text-color: #000000; /* Button text color for dark mode */
+  --primary-color: #0056b3;
+  --button-color: #0056b3;
+  --input-background: #1e1e1e;
+  --input-border: #444444;
+}
+
+/* 
+  Body styles apply the background and text color based on the theme.
+  Smooth transitions are enabled for the background and text colors for a more polished theme switch.
+*/
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 
+  Styles for form elements (textarea, input, and button).
+  These elements change their background, text color, and borders according to the theme.
+  Transitions are applied for smooth visual effects when switching between light and dark themes.
+*/
+textarea,
+input,
+button {
+  background-color: var(--input-background);
+  color: var(--text-color);
+  border: 1px solid var(--input-border);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 
+  Styles for input and textarea elements when they are focused.
+  The border color changes to the primary color of the theme when focused, to give visual feedback.
+*/
+textarea:focus,
+input:focus,
+button:hover {
+  border-color: var(--primary-color);
+}
+
+/* 
+  Header and footer elements are styled to inherit the background and text colors 
+  based on the current theme. They also have smooth transitions for a consistent experience.
+*/
+header,
+footer {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 
+  Button styles. It has a background color based on the current theme, and when hovered, 
+  it changes to an inverted color scheme (text color on background color).
+  The padding, border radius, and cursor provide a modern button appearance.
+*/
+button {
+  background-color: var(--button-color);
+  color: var(--button-text-color); /* Use button text color */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--text-color);
+  color: var(--background-color); /* Invert colors on hover */
+}

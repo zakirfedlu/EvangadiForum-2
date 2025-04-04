@@ -1,0 +1,104 @@
+/* Container for the entire component */
+.container {
+  max-width: 900px;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Steps Section */
+.stepsSection {
+  margin-bottom: 40px;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.stepsList {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.stepsList li {
+  margin-bottom: 10px;
+  /* font-size: 16px; */
+  line-height: 0.8;
+  color: var(--text-color);
+}
+
+/* Form Section */
+.AskQuestion {
+  text-align: center;
+}
+.AskQuestion a {
+  text-align: center;
+  text-decoration: none;
+  /* color: rgb(53, 52, 52); */
+  color: #e55a00;
+}
+.formSection {
+  margin-top: -2rem;
+  background-color: var(--background-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.link {
+  display: block;
+  text-align: right;
+  color: #007bff;
+  text-decoration: none;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input,
+.textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.input {
+  height: 40px;
+}
+
+.textarea {
+  height: 150px;
+  resize: none;
+}
+
+.submitButton {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  width: auto;
+  align-self: flex-start;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}

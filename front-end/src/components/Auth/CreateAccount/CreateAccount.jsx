@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import { useState, useRef } from 'react'; // Fixed import statement
 import style from '../Auth.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { useRef } from 'react';
 import axiosConfig from '../../../API/axiosConfig';
+import { PuffLoader } from 'react-spinners';
 
 const CreateAccount = ({ toggleAuth }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const emailRef = useRef();
@@ -33,10 +34,9 @@ const CreateAccount = ({ toggleAuth }) => {
         password: passwordRef.current.value,
       });
 
-      // On success, redirect to the login page
-      navigate("/login");
+
+      toggleAuth();
     } catch (error) {
-      // If there's an error, show it in the red-colored div
       setError(error.response?.data?.message || 'An error occurred. Please try again.');
     }
   };
@@ -54,7 +54,7 @@ const CreateAccount = ({ toggleAuth }) => {
 
         {error && (
           <div className={style.errorMessage}>
-            <p>{error}</p>
+            <p style={{ color: 'red' }}>{error}</p>
           </div>
         )}
 
@@ -91,9 +91,8 @@ const CreateAccount = ({ toggleAuth }) => {
             </span>
           </div>
         </div>
-
         <button type="submit" className={style.join__button}>
-          Agree and Join
+          {isLoading ? (<PuffLoader color="#000" size={20} ></PuffLoader>) : ('Agree and Join')}
         </button>
 
         <p className={style.terms}>

@@ -33,7 +33,7 @@ Frontend Team
       ✅Fedlu, Destaw: Header with Responsiveness
       ✅Gedi: Homepage UI (List of questions), Ask Questions Page
       ✅Henok,Dawit: Login/SignUp UI with Responsiveness 
-      ✅Nehemiah: Footer with responsiveness
+      ✅Nehemiah, Dawit: Footer with responsiveness
       ✅Sami: Question & Answer Page
       
  Backend Team
@@ -53,7 +53,7 @@ Frontend Team
 📜 Contribution Guidelines
  Clone the Repository
  
-       git clone https://github.com/YOUR_GITHUB_USERNAME/evangadi-forum.git
+       git clone https://github.com/Samuelgit3919/evangadi-forum.git
        cd evangadi-forum
  Create a Feature Branch
  

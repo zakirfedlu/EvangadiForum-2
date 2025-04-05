@@ -1,0 +1,146 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  /* background: linear-gradient(
+    135deg,
+    #f5f7fa 0%,
+    #e4e7eb 100%
+  ); Subtle gradient */
+  background-color: var(--background-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.heading {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+.introduction {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-bottom: 35px;
+  font-style: italic;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+  min-height: 100vh;
+}
+
+.stepItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  text-align: left;
+  padding: 20px;
+  background-color: var(--background-color);
+  border-radius: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stepItem:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stepNumber {
+  width: 45px;
+  height: 45px;
+  background: #ff6200;
+  /* Evangadi-inspired orange color */
+  color: var(--text-color);
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(255, 98, 0, 0.3);
+}
+
+.stepContent {
+  flex: 1;
+}
+
+.stepTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 8px;
+}
+
+.stepDescription {
+  font-size: 1rem;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 15px;
+  }
+
+  .heading {
+    font-size: 1.8rem;
+  }
+
+  .introduction {
+    font-size: 1rem;
+  }
+
+  .stepItem {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .stepNumber {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.5rem;
+  }
+
+  .introduction {
+    font-size: 0.9rem;
+  }
+
+  .stepTitle {
+    font-size: 1.2rem;
+  }
+
+  .stepDescription {
+    font-size: 0.9rem;
+  }
+
+  .stepNumber {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}

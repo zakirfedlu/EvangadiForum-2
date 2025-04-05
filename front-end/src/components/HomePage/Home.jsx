@@ -13,14 +13,20 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1); // Track the current page
+  const questionsPerPage = 4; // Number of questions to display per page
 
   const { users } = useContext(authContext);
-  const userName = users?.user?.userName || "Guest";
+
+  // console.log(users)
+  const userName = users?.username || localStorage.getItem('userName') || 'Guest';
+
+  const token = localStorage.getItem("token");
+  // console.log(users.username)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem("token"); 
 
         if (!token) {
           console.error("No token found, authentication required.");
@@ -33,25 +39,53 @@ const Home = () => {
           },
         });
 
-        setData(response.data?.questions || []); 
+        setData(response.data?.questions || []);
         setLoading(false);
-        console.log(response.data); // Log response
+        console.log(response.data.questions[0].username);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, []); // Only run on component mount
+  }, []);
 
-
+  // Filter data based on search input
   const filteredData = (Array.isArray(data) ? data : []).filter((item) =>
     item.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  console.log(filteredData);
-  
+  // Calculate pagination details
+  // Calculate the total number of questions based on the filtered data
+  const totalQuestions = filteredData.length;
+
+  // Calculate the total number of pages based on the number of questions per page
+  const totalPages = Math.ceil(totalQuestions / questionsPerPage);
+
+  // Calculate the start index of the current page
+  const startIndex = (currentPage - 1) * questionsPerPage;
+
+  // Calculate the end index of the current page
+  const endIndex = startIndex + questionsPerPage;
+
+  // Slice the filtered data to get the current page's questions
+  const currentQuestions = filteredData.slice(startIndex, endIndex);
+
+  // Handle Next button click
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  // Handle Previous button click
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
   return (
     <Layout>
       <ChatBot />
@@ -64,11 +98,13 @@ const Home = () => {
           </button>
           <p className={styles.welcome}>
             Welcome:{" "}
-            <span
-              style={{ color: "#ff6200", fontWeight: "600", fontSize: "18px" }}
-            >
-              {userName}
-            </span>
+            {users && (
+              <span
+                style={{ color: "#ff6200", fontWeight: "600", fontSize: "18px" }}
+              >
+                {userName}
+              </span>
+            )}
           </p>
         </div>
         <div className={styles.search}>
@@ -87,23 +123,45 @@ const Home = () => {
               <ScaleLoader />
             </div>
           ) : (
-            filteredData.map((item) => (
-              <Link
-              to={`/askQuestion/${item.question_id}`} // Use question_id instead of id
-              key={item.question_id} // Ensure a unique key
-              className={styles.questionItem}
-              >
-                {console.log(item)}
-                <div className={styles.userInfo}>
-                  <RxAvatar size={70} className={styles.avatar} />
-                  <p className={styles.username}>{item.username}</p>
+            <>
+              {currentQuestions.map((item) => (
+                <Link
+                  to={`/askQuestion/${item.question_id}`}
+                  key={item.question_id}
+                  className={styles.questionItem}
+                >
+                  <div className={styles.userInfo}>
+                    <RxAvatar size={70} className={styles.avatar} />
+                    <p className={styles.username}>{item.username}</p>
+                  </div>
+                  <div className={styles.questionContent}>
+                    <p className={styles.questionText}>{item.title}</p>
+                    <MdKeyboardArrowRight size={30} className={styles.arrow} />
+                  </div>
+                </Link>
+              ))}
+              {totalQuestions > questionsPerPage && (
+                <div className={styles.pagination}>
+                  <button
+                    onClick={handlePrevious}
+                    disabled={currentPage === 1}
+                    className={styles.paginationButton}
+                  >
+                    Previous
+                  </button>
+                  <span className={styles.pageInfo}>
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <button
+                    onClick={handleNext}
+                    disabled={currentPage === totalPages}
+                    className={styles.paginationButton}
+                  >
+                    Next
+                  </button>
                 </div>
-                <div className={styles.questionContent}>
-                  <p className={styles.questionText}>{item.title}</p>
-                  <MdKeyboardArrowRight size={30} className={styles.arrow} />
-                </div>
-              </Link>
-            ))
+              )}
+            </>
           )}
         </div>
       </div>

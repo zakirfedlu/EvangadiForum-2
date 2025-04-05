@@ -6,21 +6,24 @@
 
 .description__container h5 {
   font-size: 14px;
-  color: #666;
+  color: var(--text-color);
   margin-bottom: 10px;
 }
 
 .description__container h2 {
   font-size: 28px;
-  color: #1a2526;
+  color: var(--text-color);
   margin-bottom: 20px;
 }
 
 .description__container p {
   font-size: 14px;
-  color: #666;
+  color: var(--text-color);
   line-height: 1.6;
   margin-bottom: 15px;
+}
+.description__container h4 {
+  color: #e55a00;
 }
 
 /* How It Works Button */

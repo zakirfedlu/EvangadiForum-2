@@ -6,13 +6,25 @@
   padding: 40px 20px;
   position: relative;
   overflow: hidden;
-  background-color: #f9f9f9;
+  background-color: var(--background-color);
 }
+
 .login {
   width: 450px;
   text-align: center;
   /* width: 450px; */
 }
+
+.button__loading {
+  width: 100%;
+  height: 10px;
+  margin-top: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .create {
   width: 450px;
   color: #ff6200;
@@ -30,14 +42,16 @@
 }
 
 .home__container::before {
-  background-color: #d6e6ff;
+  /* background-color: #d6e6ff; */
+  background-color: #e55a00;
   top: -250px;
   left: -250px;
   transform: rotate(45deg);
 }
 
 .home__container::after {
-  background-color: #ffe6e6;
+  /* background-color: #ffe6e6; */
+  background-color: #e55a00;
   bottom: -250px;
   right: -250px;
   transform: rotate(-45deg);
@@ -55,6 +69,23 @@
   animation: fadeSlide 0.3s ease-in-out;
 }
 
+.login__register_btn {
+  border: none;
+  /* background: #f0c14b; */
+  border-radius: 5px;
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__register_btn:hover {
+  background-color: lightgray;
+}
+
 /* Form Styling */
 .form {
   display: flex;
@@ -63,8 +94,9 @@
   align-items: center;
   height: 450px;
   width: 100%;
-  max-width: 400px; /* Fixed width for both forms */
-  background-color: #fff;
+  max-width: 400px;
+  /* Fixed width for both forms */
+  background-color: var(--background-color);
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -73,15 +105,16 @@
 
 .form h1 {
   font-size: 20px;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 10px;
 }
 
 .form p {
   font-size: 14px;
-  color: #666;
+  color: var(--text-color);
   margin-bottom: 20px;
 }
+
 .create__account a {
   color: #ff6200;
 }
@@ -127,7 +160,8 @@
 
 .name__group .input__group {
   flex: 1;
-  margin-bottom: 0; /* Override the default margin for name fields */
+  margin-bottom: 0;
+  /* Override the default margin for name fields */
 }
 
 /* Password Wrapper and Toggle */
@@ -159,6 +193,7 @@
   transition: background-color 0.3s ease;
   margin-bottom: 15px;
 }
+
 .submit__button a,
 .join__button a {
   color: #fff;
@@ -166,19 +201,23 @@
 }
 
 .submit__button {
-  background-color: #ff6200; /* Orange for Login */
+  background-color: #ff6200;
+  /* Orange for Login */
 }
 
 .submit__button:hover {
-  background-color: #e55a00; /* Darker orange on hover */
+  background-color: #e55a00;
+  /* Darker orange on hover */
 }
 
 .join__button {
-  background-color: #007bff; /* Blue for Create Account */
+  background-color: #007bff;
+  /* Blue for Create Account */
 }
 
 .join__button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
+  /* Darker blue on hover */
 }
 
 /* Terms Text (Create Account) */
@@ -194,6 +233,7 @@
     opacity: 0;
     transform: translateX(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -215,14 +255,14 @@
 
   .form {
     margin: 0 auto;
-    max-width: 80%; /* Ensure form takes full width on smaller screens */
+    max-width: 80%;
+    /* Ensure form takes full width on smaller screens */
   }
 
   .name__group {
     flex-direction: column;
     gap: 10px;
   }
-
 }
 
 @media (max-width: 576px) {
@@ -247,5 +287,4 @@
   .terms {
     font-size: 12px;
   }
-
 }
